@@ -6,10 +6,7 @@
   <name>sample-spring-maven</name>
   
   <build>
-  <!-- 
   
-        -->
-        
         <plugins>
  
  <plugin>
