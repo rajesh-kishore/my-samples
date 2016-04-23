@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/student" xmlns:tns="http://www.example.org/student" xmlns:crss="http://www.example.org/courses" elementFormDefault="qualified">
+
+<import schemaLocation="course.xsd"  namespace="http://www.example.org/courses"></import>
+
+
+	<element name="student" type="tns:student"/>
+
+    <complexType name="student">
+    
+    	<sequence>
+    		<element name="studentId" type="string"></element>
+    		<element name="studentName" type="string"></element>
+    		<element name="course" type="crss:course" maxOccurs="unbounded"/>
+    	</sequence>
+    </complexType>
+
+    
+</schema>
