@@ -4,8 +4,8 @@
 package com.kishore.xmlprocessor.exceptions;
 
 /**
- * The custom Runtime exception thrown by the apis @see com.kishore.xmlprocessor.XmlProcessingEngine#processXml(String)
- * and @see 
+ * The custom Runtime exception thrown by the apis @see {@link com.kishore.xmlprocessor.XmlProcessingEngine#processXml(String)}
+ * and @see {@link com.kishore.xmlprocessor.XmlProcessingEngine#validateXml(String)}
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1

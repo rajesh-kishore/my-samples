@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 import com.kishore.xmlprocessor.exceptions.XmlProcessingException;
 
 /**
+ * The class is acting as a engine to process the xmlString and convert this to JAXB object
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
@@ -50,7 +51,7 @@ final public class XmlProcessingEngine {
 	
 	
 	/**
-	 * The utility method to return the singleton instance of @see com.kishore.xmlprocessor.XmlProcessingEngine 
+	 * The utility method to return the singleton instance of @see {@link com.kishore.xmlprocessor.XmlProcessingEngine} 
 	 * @return The singleton XmlProcessingEngine
 	 */
 	public static XmlProcessingEngine getInstance() {
@@ -62,7 +63,7 @@ final public class XmlProcessingEngine {
 	/**
 	 * The api validates a given string conforms to schema
 	 * @param xmlString The xml string which needs to be validated
-	 * @return @see java.lang.Boolean.TRUE when the validation passes
+	 * @return when the validation passes it returns @see {@link java.lang.Boolean#TRUE} 
 	 */
 	public Boolean validateXml(String xmlString) {
 		
@@ -91,9 +92,9 @@ final public class XmlProcessingEngine {
 	
 	/**
 	 * The api is to convert xml string to JAXB Object
-	 * @param xmlString The xml string which needs to be convertedt to JAXB object
-	 * @return
-	 * @throws @see com.kishore.xmlprocessor.exceptions.XmlProcessingException when any error occurs during schema validation or JAXB object conversion
+	 * @param xmlString The xml string which needs to be converted to JAXB object
+	 * @return "com.kishore.vos.Student jaxb object"
+	 * @throws when any error occurs during schema validation or JAXB object conversion, following exception is thrown @see {@link com.kishore.xmlprocessor.exceptions.XmlProcessingException}  
 	 */
 	public com.kishore.vos.Student processXml(String xmlString) {
 		
