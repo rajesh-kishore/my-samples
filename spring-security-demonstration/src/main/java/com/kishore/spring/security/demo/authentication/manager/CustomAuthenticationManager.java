@@ -17,6 +17,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import com.kishore.spring.security.demo.utils.loggers.SecurityDemoLogger;
 
 /**
+ * The custom authentication manager class
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
