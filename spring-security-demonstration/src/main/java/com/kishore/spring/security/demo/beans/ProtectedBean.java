@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * @version 1.0
  * @since Release1
  */
+//@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_GUEST')")
 public class ProtectedBean {
 
 	/* (non-Javadoc)

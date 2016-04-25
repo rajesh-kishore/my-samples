@@ -26,11 +26,7 @@ import com.kishore.spring.security.demo.utils.loggers.SecurityDemoLogger;
  */
 final public class SecurityDemoApplicationController {
 
-	public static void main(String[] args) {
 		
-		SecurityDemoApplicationController securityDemoApplicationController = new SecurityDemoApplicationController();
-	}
-	
 	/**
 	 * The application context of Spring, please look {@link org.springframework.context.annotation.AnnotationConfigApplicationContext} 
 	 */

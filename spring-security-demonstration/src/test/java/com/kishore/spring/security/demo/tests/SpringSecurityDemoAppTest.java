@@ -99,5 +99,39 @@ public class SpringSecurityDemoAppTest {
 		assertEquals(Boolean.FALSE,exceptionOccured);
 	
 	}
+	
+	/**
+	 * Validates if unauthenticated user can access non-protected method
+	 */
+	@Test
+	public void testTryNonRestrictedMethodForProtectedBeanByUnAuthenticatedUser() {
+		SecurityDemoApplicationController securityDemoApplicationController = new SecurityDemoApplicationController(); 
+		//assertTrue(" The user could not be authenticated.",securityDemoApplicationController.doLogin("guestuser", new char[]{'g','u','e','s','t','u','s','e','r'}));
+		Boolean exceptionOccured = Boolean.FALSE;
+		try {
+			securityDemoApplicationController.tryNonRestrictedMethodForProtectedBean();
+		} catch (Exception e) {
+			exceptionOccured = Boolean.TRUE;
+		}
+		assertEquals(Boolean.FALSE,exceptionOccured);
+	
+	}
+	
+	/**
+	 * Validates if unauthenticated user can access protected method
+	 */
+	@Test
+	public void testTryRestrictedMethodForProtectedBeanByUnAuthenticatedUser() {
+		SecurityDemoApplicationController securityDemoApplicationController = new SecurityDemoApplicationController(); 
+		//assertTrue(" The user could not be authenticated.",securityDemoApplicationController.doLogin("guestuser", new char[]{'g','u','e','s','t','u','s','e','r'}));
+		Boolean exceptionOccured = Boolean.FALSE;
+		try {
+			securityDemoApplicationController.tryRestrictedMethodForProtectedBean();
+		} catch (Exception e) {
+			exceptionOccured = Boolean.TRUE;
+		}
+		assertEquals(Boolean.TRUE,exceptionOccured);
+	
+	}
 
 }
