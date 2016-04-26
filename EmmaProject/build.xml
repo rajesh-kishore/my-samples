@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="EmmaProject">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../eclipse-jee-kepler-R-win32-x86_64/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+    </path>
+    <path id="EmmaProject.classpath">
+        <pathelement location="target/classes"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+        <pathelement location="lib/emma_ant.jar"/>
+        <pathelement location="lib/emma.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="target/classes"/>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="src/main">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="src/test">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="target/classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src/main"/>
+            <src path="src/test"/>
+            <classpath refid="EmmaProject.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+              	
+              	<target name="ShapeClientTest" depends="emma,build,clean">
+              	        <mkdir dir="${junit.output.dir}"/>
+              	    	<emma enabled="${emma.enabled}" >
+              	    	    <instr instrpathref="emma.coverage.classes"
+              	    	         destdir="${instr.dir}"
+              	    	         metadatafile="${coverage.dir}/metadata.emma"
+              	    	         merge="true">
+              	    	        <filter value="${emma.filter}" />
+              	    	        
+              	    	        
+              	    	    </instr>
+              	    	</emma>
+              	    	
+              	        <junit fork="yes" printsummary="withOutAndErr">
+              	            <formatter type="xml"/>
+              	            <test name="com.kishore.shapes.ShapeClientTest" todir="${junit.output.dir}"/>
+              	        	
+              	            <classpath refid="JUnit 4.libraryclasspath"/>
+              	        	
+              	            <!--<classpath refid="EmmaProject.classpath"/>-->
+              	        	<classpath location="${basedir}/target/test-classes"/>
+              	        	<classpath location="${basedir}/target/emmainstr"/>
+              	        	<classpath location="${basedir}/target/classes"/>
+              	        	
+              	        	
+              	        	
+              	        	<classpath refid="emma.lib"/>
+              	        	
+              	        	<jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage.emma" />
+              	        	<jvmarg value="-Demma.coverage.out.merge=false" />
+              	        	
+              	        	       	
+              	        </junit>
+              	    	
+              	    	<emma enabled="${emma.enabled}" >
+              	    	    <report sourcepath="src/main"
+              	    	          sort="+block,+name,+method,+class"
+              	    	          metrics="method:70,block:80,line:80,class:100"
+              	    	    >
+              	    	    <!-- collect all EMMA data dumps (metadata and runtime)
+              	    	         [this can be done via nested <fileset> fileset elements
+              	    	         or <file> elements pointing to a single file]:
+              	    	    -->
+              	    	    <fileset dir="${coverage.dir}" >
+              	    	        <include name="*.emma" />
+              	    	    </fileset>
+              	    	    
+              	    	    <!-- for every type of report desired, configure a nested
+              	    	         element; various report parameters
+              	    	         can be inherited from the parent <report>
+              	    	         and individually overridden for each report type:
+              	    	    -->
+              	    	    <txt outfile="${coverage.dir}/coverage.txt"
+              	    	        depth="package"
+              	    	        columns="class,method,block,line,name" />
+              	    	    <xml outfile="${coverage.dir}/coverage.xml"
+              	    	        depth="package"/>
+              	    	    <html outfile="${coverage.dir}/coverage.html"
+              	    	        depth="method"
+              	    	        columns="name,class,method,block,line" />
+              	    	    </report>
+              	    	</emma>
+              	    </target>
+              	    <target name="junitreport">
+              	        <junitreport todir="${junit.output.dir}">
+              	            <fileset dir="${junit.output.dir}">
+              	                <include name="TEST-*.xml"/>
+              	            </fileset>
+              	            <report format="frames" todir="${junit.output.dir}"/>
+              	        </junitreport>
+              	    </target>
+              		
+              		
+              		
+              	    	<property name="coverage.dir" value="${basedir}/reports/emma" />     <!-- directory which emma coverage reports will be written to -->
+              	    	<property name="instr.dir" value="${basedir}/target/emmainstr" />    <!-- directory which emma instrumentation classes will be written to -->
+              	    	<property name="emma.dir" value="${basedir}/lib" />             <!-- directory that contains emma.jar and emma_ant.jar -->
+
+              	    	<!-- Set emma.lib to refer to the list of EMMA jar files -->
+              	    	<path id="emma.lib" >
+              	    	    <fileset dir="${emma.dir}">
+              	    	        <include name="*.jar"/>
+              	    	    </fileset>
+              	    	</path>
+
+              	    	<!-- Define which classes will be reported in the coverage reports (by default, we will include all classes and assume -->
+              	    	<!-- that your project's output folder is target/classes -->
+              	    	<path id="emma.coverage.classes" >
+              	    	    <pathelement location="target/classes" />
+              	    	</path>
+
+              	    	<!-- Load <emma> and <emmajava> custom tasks so that they can be used in ANT -->
+              	    	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+
+              	    	<!-- Enable Emma -->
+              	    	<target name="emma" description="turns on EMMA's instrumentation/reporting" >
+
+              	    	    <property name="emma.enabled" value="true" />
+
+              	    	    <!-- EMMA instr class output directory (it is important to create this property only when EMMA is enabled) -->
+              	    	    <mkdir dir="${instr.dir}" />
+              	    	    
+              	    	    <!-- this property, if overriden via -Demma.filter=<list of filter specs>
+              	    	     on ANT's command line, will set the coverage filter; by default,
+              	    	     all classes found in 'emma.coverage.classes' pathref will be instrumented:
+              	    	    -->
+              	    	    <property name="emma.filter" value="" />
+
+              	    	</target>
+</project>
