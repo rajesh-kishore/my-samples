@@ -11,12 +11,16 @@ import com.kishore.repository.service.RepositoryService;
 import com.kishore.repository.service.impl.DBRepositoryServiceImpl;
 
 /**
+ * The OOTB DB RepositoryProvider which provides DB repository service  
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
  */
 public class DBRepositoryProvider implements RepositoryProvider {
 
+	/**
+	 * The spring specific services
+	 */
 	ApplicationContext appContext = null; 
 	
 	/**

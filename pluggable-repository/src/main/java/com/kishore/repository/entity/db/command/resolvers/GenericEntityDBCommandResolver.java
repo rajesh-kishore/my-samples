@@ -5,15 +5,15 @@ package com.kishore.repository.entity.db.command.resolvers;
 
 import java.util.Map;
 
-import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver;
-import com.kishore.repository.generic.entity.GenericEntity;
+import com.kishore.repository.entities.GenericEntity;
+import com.kishore.repository.entity.command.resolvers.DBRepositoryCommandResolver;
 
 /**
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
  */
-public class GenericEntityDBCommandResolver implements RepositoryCommandResolver {
+public class GenericEntityDBCommandResolver implements DBRepositoryCommandResolver {
 
 	
 	public String resolveCreateCommand(Object entity) {

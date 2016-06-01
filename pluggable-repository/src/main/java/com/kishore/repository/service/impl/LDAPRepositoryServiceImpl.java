@@ -8,21 +8,31 @@ import java.util.Map;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
-import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver;
+import com.kishore.repository.entities.Entity;
+import com.kishore.repository.entity.command.resolvers.LDAPRepositoryCommandResolver;
 import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolverFactory;
-import com.kishore.repository.generic.entity.GenericEntity;
+import com.kishore.repository.provider.impl.DBRepositoryProvider;
+import com.kishore.repository.provider.impl.LDAPRepositoryProvider;
 import com.kishore.repository.service.RepositoryService;
 import com.kishore.repository.service.dao.LDAPRepositoryDAO;
 
 /**
+ * The LDAP repository service for {@link LDAPRepositoryProvider}
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
  */
 public class LDAPRepositoryServiceImpl implements RepositoryService {
 
+	/**
+	 * The LDAP repository DAO 
+	 */
 	private LDAPRepositoryDAO ldapRepositoryDAO = null;
 	
+	
+	/**
+	 * The spring context to avail spring services
+	 */
 	private ApplicationContext appContext = null;
 	
 	/**
@@ -56,9 +66,9 @@ public class LDAPRepositoryServiceImpl implements RepositoryService {
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#create(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void create(GenericEntity genericEntity) {
-		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		Map<String,Object> mapAttributes = (Map<String,Object>) repositoryCommandResolver.resolveCreateCommand(genericEntity);
+	public void create(Entity entity) {
+		LDAPRepositoryCommandResolver repositoryCommandResolver = (LDAPRepositoryCommandResolver) RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),entity.getClass().getName());
+		Map<String,Object> mapAttributes = repositoryCommandResolver.resolveCreateCommand(entity);
 		getLdapRepositoryDAO().insert(mapAttributes);
 		
 	}
@@ -66,18 +76,18 @@ public class LDAPRepositoryServiceImpl implements RepositoryService {
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#update(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void update(GenericEntity genericEntity) {
-		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		;
-		getLdapRepositoryDAO().update((Map<String,Object>) repositoryCommandResolver.resolveCreateCommand(genericEntity));
+	public void update(Entity entity) {
+		LDAPRepositoryCommandResolver repositoryCommandResolver = (LDAPRepositoryCommandResolver) RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),entity.getClass().getName());
+		
+		getLdapRepositoryDAO().update(repositoryCommandResolver.resolveUpdateCommand(entity));
 	}
 
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#delete(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void delete(GenericEntity genericEntity) {
-		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		getLdapRepositoryDAO().delete((Map<String,Object>) repositoryCommandResolver.resolveCreateCommand(genericEntity));
+	public void delete(Entity entity) {
+		LDAPRepositoryCommandResolver repositoryCommandResolver = (LDAPRepositoryCommandResolver) RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),entity.getClass().getName());
+		getLdapRepositoryDAO().delete(repositoryCommandResolver.resolveDeleteCommand(entity));
 	}
 
 

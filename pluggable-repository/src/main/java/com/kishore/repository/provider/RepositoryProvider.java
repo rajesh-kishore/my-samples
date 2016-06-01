@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContextAware;
 import com.kishore.repository.service.RepositoryService;
 
 /**
+ * The spi to be implemented by different repository provider.
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1

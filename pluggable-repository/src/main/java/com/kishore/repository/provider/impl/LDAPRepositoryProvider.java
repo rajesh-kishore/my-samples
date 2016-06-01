@@ -11,12 +11,16 @@ import com.kishore.repository.service.RepositoryService;
 import com.kishore.repository.service.impl.LDAPRepositoryServiceImpl;
 
 /**
+ * The OOTB LDAP RepositoryProvider which provides LDAP repository service
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
  */
 public class LDAPRepositoryProvider implements RepositoryProvider {
 
+	/**
+	 * The spring specific services
+	 */
 	ApplicationContext appContext = null;
 	
 	/**

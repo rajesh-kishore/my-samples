@@ -6,22 +6,29 @@ package com.kishore.repository.service.impl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
-import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver;
+import com.kishore.repository.entities.Entity;
+import com.kishore.repository.entity.command.resolvers.DBRepositoryCommandResolver;
 import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolverFactory;
-import com.kishore.repository.generic.entity.GenericEntity;
+import com.kishore.repository.provider.impl.DBRepositoryProvider;
 import com.kishore.repository.service.RepositoryService;
 import com.kishore.repository.service.dao.DBRepositoryDAO;
-import com.kishore.repository.service.dao.impl.DBRepositoryDAOImpl;
 
 /**
+ * The DB repository service for {@link DBRepositoryProvider}
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
  */
 public class DBRepositoryServiceImpl implements RepositoryService {
 
+	/**
+	 * The DB repository DAO 
+	 */
 	private DBRepositoryDAO dbRepositoryDAO = null;
 	
+	/**
+	 * The spring context to avail spring services
+	 */
 	private ApplicationContext appContext = null;
 	
 	/**
@@ -54,27 +61,27 @@ public class DBRepositoryServiceImpl implements RepositoryService {
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#create(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void create(GenericEntity genericEntity) {
-		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		String insertStatement = (String) repositoryCommandResolver.resolveCreateCommand(genericEntity);
+	public void create(Entity entity) {
+		DBRepositoryCommandResolver repositoryCommandResolver = (DBRepositoryCommandResolver) RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),entity.getClass().getName());
+		String insertStatement = repositoryCommandResolver.resolveCreateCommand(entity);
 		this.getDbRepositoryDAO().insert(insertStatement);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#update(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void update(GenericEntity genericEntity) {
-		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		String updateStatement = (String) repositoryCommandResolver.resolveUpdateCommand(genericEntity);
+	public void update(Entity entity) {
+		DBRepositoryCommandResolver repositoryCommandResolver = (DBRepositoryCommandResolver) RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),entity.getClass().getName());
+		String updateStatement = repositoryCommandResolver.resolveUpdateCommand(entity);
 		this.getDbRepositoryDAO().insert(updateStatement);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#delete(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void delete(GenericEntity genericEntity) {
-		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		String deleteStatement = (String) repositoryCommandResolver.resolveDeleteCommand(genericEntity);
+	public void delete(Entity entity) {
+		DBRepositoryCommandResolver repositoryCommandResolver = (DBRepositoryCommandResolver) RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),entity.getClass().getName());
+		String deleteStatement = (String) repositoryCommandResolver.resolveDeleteCommand(entity);
 		this.getDbRepositoryDAO().insert(deleteStatement);
 	}
 	

@@ -3,25 +3,29 @@
  */
 package com.kishore.repository.entity.command.resolvers;
 
-import com.kishore.repository.entity.db.command.resolvers.GenericEntityDBCommandResolver;
-import com.kishore.repository.entity.ldap.command.resolvers.GenericEntityLDAPCommandResolver;
-import com.kishore.repository.generic.entity.GenericEntity;
 
 /**
+ * The abstract factory class which determines one of the corresponding Factory based on repository service and returns the correct command resolver
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
  */
 public final class RepositoryCommandResolverFactory {
 	
+	/**
+	 * 
+	 * @param repositoryServiceType - Could be LDAP, DB, InMemory
+	 * @param entityType - full class name of the entity used
+	 * @return
+	 */
 	public static RepositoryCommandResolver valueOf(String repositoryServiceType, String entityType) {
 		
-		if (("DB:"+GenericEntity.class.getName()).equals(repositoryServiceType+":"+entityType)) {
-			return new GenericEntityDBCommandResolver();
+		if ("DB".equals(repositoryServiceType)) {
+			return DBRepositoryCommandResolverFactory.valueOf(entityType);
 		}
 		
-		if (("LDAP:"+GenericEntity.class.getName()).equals(repositoryServiceType+":"+entityType)) {
-			return new GenericEntityLDAPCommandResolver();
+		if ("LDAP".equals(repositoryServiceType)) {
+			return LDAPRepositoryCommandFactory.valueOf(entityType);
 		}
 		
 		return null;

@@ -97,7 +97,7 @@ public class PluggableRepositoryRegistry {
 	 * Returns the first registered {@link RepositoryProvider}, if jvm argument is supplied for custom repository then custom repository provider will be returned
 	 * @return The registered {@link RepositoryProvider}
 	 */
-	public RepositoryService repositoryInstance() {
+	public RepositoryService repositoryServiceInstance() {
 		return (CUSTOM_REPOSITORY_PROVIDER != null && !"".equals(CUSTOM_REPOSITORY_PROVIDER)) ?	mapProviders.get(CUSTOM_REPOSITORY_PROVIDER).createRepositoryService() : mapProviders.values().iterator().next().createRepositoryService();
 	}
 	

@@ -11,8 +11,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.kishore.repository.entities.GenericEntity;
 import com.kishore.repository.framework.PluggableRepositoryRegistry;
-import com.kishore.repository.generic.entity.GenericEntity;
 import com.kishore.repository.service.RepositoryService;
 import com.kishore.repository.service.impl.DBRepositoryServiceImpl;
 
@@ -66,10 +66,10 @@ public class TestPluggableDBRepository {
 	/**
 	 * Test method for {@link com.kishore.repository.framework.PluggableRepositoryRegistry#repositoryInstance()}.
 	 */
-	@Test
+/*	@Test
 	public void testRepositoryInstance() {
 		PluggableRepositoryRegistry pluggableRepositoryFramework = PluggableRepositoryRegistry.getInstance();
-		RepositoryService repositoryService =  pluggableRepositoryFramework.repositoryInstance();
+		RepositoryService repositoryService =  pluggableRepositoryFramework.repositoryServiceInstance();
 		assertNotNull("No repository service registered", repositoryService);
 		assertTrue("RepositoryInstance is not DBRepository", repositoryService instanceof DBRepositoryServiceImpl);
 	}
@@ -78,7 +78,7 @@ public class TestPluggableDBRepository {
 	@Test
 	public void testDBRepositoryCommand() {
 		PluggableRepositoryRegistry pluggableRepositoryFramework = PluggableRepositoryRegistry.getInstance();
-		RepositoryService repositoryService =  pluggableRepositoryFramework.repositoryInstance();
+		RepositoryService repositoryService =  pluggableRepositoryFramework.repositoryServiceInstance();
 		assertNotNull("No repository service registered", repositoryService);
 		assertTrue("RepositoryInstance is not DBRepository", repositoryService instanceof DBRepositoryServiceImpl);
 		GenericEntity genericEntity = new GenericEntity();
@@ -90,8 +90,6 @@ public class TestPluggableDBRepository {
 			e.printStackTrace();
 			fail("Creation failed");
 		}
-		
-		
-	}
+	}*/
 
 }

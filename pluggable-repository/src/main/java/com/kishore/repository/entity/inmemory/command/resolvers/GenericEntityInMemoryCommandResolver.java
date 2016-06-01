@@ -3,7 +3,7 @@
  */
 package com.kishore.repository.entity.inmemory.command.resolvers;
 
-import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver;
+import com.kishore.repository.entity.command.resolvers.DBRepositoryCommandResolver;
 
 /**
  * @author Rajesh Kishore
@@ -11,7 +11,7 @@ import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver
  * @since Release1
  */
 public class GenericEntityInMemoryCommandResolver implements
-		RepositoryCommandResolver {
+		DBRepositoryCommandResolver {
 
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver#resolveCreateStatementCommand(java.lang.Object)

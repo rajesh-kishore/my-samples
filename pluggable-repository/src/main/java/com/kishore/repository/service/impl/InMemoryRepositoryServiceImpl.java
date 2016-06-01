@@ -6,10 +6,11 @@ package com.kishore.repository.service.impl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
-import com.kishore.repository.generic.entity.GenericEntity;
+import com.kishore.repository.entities.Entity;
 import com.kishore.repository.service.RepositoryService;
 
 /**
+ * The InMemory repository service for {@link InMemoryRepositoryServiceImpl}
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
@@ -17,6 +18,9 @@ import com.kishore.repository.service.RepositoryService;
 public class InMemoryRepositoryServiceImpl implements RepositoryService {
 
 	
+	/**
+	 * The spring context to avail spring services
+	 */
 	private ApplicationContext appContext;
 	
 	/**
@@ -39,7 +43,7 @@ public class InMemoryRepositoryServiceImpl implements RepositoryService {
 	
 	
 	/**
-	 * The feactory method to create {@link InMemoryRepositoryServiceImpl}
+	 * The factory method to create {@link InMemoryRepositoryServiceImpl}
 	 * @return
 	 */
 	public static RepositoryService getInstance() {
@@ -49,7 +53,7 @@ public class InMemoryRepositoryServiceImpl implements RepositoryService {
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#create(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void create(GenericEntity genericEntity) {
+	public void create(Entity entity) {
 		// TODO Auto-generated method stub
 
 	}
@@ -57,7 +61,7 @@ public class InMemoryRepositoryServiceImpl implements RepositoryService {
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#update(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void update(GenericEntity genericEntity) {
+	public void update(Entity entity) {
 		// TODO Auto-generated method stub
 
 	}
@@ -65,7 +69,7 @@ public class InMemoryRepositoryServiceImpl implements RepositoryService {
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.RepositoryService#delete(com.kishore.repository.generic.entity.GenericEntity)
 	 */
-	public void delete(GenericEntity genericEntity) {
+	public void delete(Entity entity) {
 		// TODO Auto-generated method stub
 
 	}

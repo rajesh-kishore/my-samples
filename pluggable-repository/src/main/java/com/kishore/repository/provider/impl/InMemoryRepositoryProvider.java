@@ -11,6 +11,7 @@ import com.kishore.repository.service.RepositoryService;
 import com.kishore.repository.service.impl.InMemoryRepositoryServiceImpl;
 
 /**
+ * The OOTB InMemory RepositoryProvider which provides InMemory repository service
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
@@ -18,6 +19,9 @@ import com.kishore.repository.service.impl.InMemoryRepositoryServiceImpl;
 public class InMemoryRepositoryProvider implements RepositoryProvider {
 
 	
+	/**
+	 * The spring specific services
+	 */
 	private ApplicationContext appContext;
 	
 	/**
