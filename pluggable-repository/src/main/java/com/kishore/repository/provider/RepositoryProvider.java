@@ -3,6 +3,8 @@
  */
 package com.kishore.repository.provider;
 
+import org.springframework.context.ApplicationContextAware;
+
 import com.kishore.repository.service.RepositoryService;
 
 /**
@@ -10,7 +12,7 @@ import com.kishore.repository.service.RepositoryService;
  * @version 1.0
  * @since Release1
  */
-public interface RepositoryProvider {
+public interface RepositoryProvider extends ApplicationContextAware {
 	
 	
 	/**

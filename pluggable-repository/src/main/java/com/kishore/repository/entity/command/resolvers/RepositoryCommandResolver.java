@@ -10,10 +10,10 @@ package com.kishore.repository.entity.command.resolvers;
  */
 public interface RepositoryCommandResolver {
 	
-	public String resolveCreateStatementCommand(Object entity);
+	public Object resolveCreateCommand(Object entity);
 	
-	public String resolveUpdateStatementCommand(Object entity);
+	public Object resolveUpdateCommand(Object entity);
 	
-	public String resolveDeleteStatementCommand(Object entity);
+	public Object resolveDeleteCommand(Object entity);
 
 }

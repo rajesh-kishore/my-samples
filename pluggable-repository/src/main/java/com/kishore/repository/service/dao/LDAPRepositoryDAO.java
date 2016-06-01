@@ -3,6 +3,8 @@
  */
 package com.kishore.repository.service.dao;
 
+import java.util.Map;
+
 /**
  * @author Rajesh Kishore
  * @version 1.0
@@ -10,10 +12,10 @@ package com.kishore.repository.service.dao;
  */
 public interface LDAPRepositoryDAO {
 
-	public void insert();
+	public void insert(Map<String,Object> mapAttributes);
 	
-	public void delete();
+	public void delete(Map<String,Object> mapAttributes);
 	
-	public void update();
+	public void update(Map<String,Object> mapAttributes);
 	
 }

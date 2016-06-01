@@ -3,6 +3,9 @@
  */
 package com.kishore.repository.service.impl;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+
 import com.kishore.repository.generic.entity.GenericEntity;
 import com.kishore.repository.service.RepositoryService;
 
@@ -13,6 +16,8 @@ import com.kishore.repository.service.RepositoryService;
  */
 public class InMemoryRepositoryServiceImpl implements RepositoryService {
 
+	
+	private ApplicationContext appContext;
 	
 	/**
 	 * The private constructor created to allow only instance of this class
@@ -71,6 +76,16 @@ public class InMemoryRepositoryServiceImpl implements RepositoryService {
 	public String repositroyServiceName() {
 		// TODO Auto-generated method stub
 		return "InMemory";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+	 */
+	@Override
+	public void setApplicationContext(ApplicationContext arg0)
+			throws BeansException {
+
+		appContext = arg0;
 	}
 
 }

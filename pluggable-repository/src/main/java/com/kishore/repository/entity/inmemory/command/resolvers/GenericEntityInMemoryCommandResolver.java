@@ -16,7 +16,7 @@ public class GenericEntityInMemoryCommandResolver implements
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver#resolveCreateStatementCommand(java.lang.Object)
 	 */
-	public String resolveCreateStatementCommand(Object entity) {
+	public String resolveCreateCommand(Object entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -24,7 +24,7 @@ public class GenericEntityInMemoryCommandResolver implements
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver#resolveUpdateStatementCommand(java.lang.Object)
 	 */
-	public String resolveUpdateStatementCommand(Object entity) {
+	public String resolveUpdateCommand(Object entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -32,7 +32,7 @@ public class GenericEntityInMemoryCommandResolver implements
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver#resolveDeleteStatementCommand(java.lang.Object)
 	 */
-	public String resolveDeleteStatementCommand(Object entity) {
+	public String resolveDeleteCommand(Object entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

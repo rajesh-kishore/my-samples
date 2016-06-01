@@ -3,6 +3,9 @@
  */
 package com.kishore.repository.service.impl;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+
 import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolver;
 import com.kishore.repository.entity.command.resolvers.RepositoryCommandResolverFactory;
 import com.kishore.repository.generic.entity.GenericEntity;
@@ -17,7 +20,9 @@ import com.kishore.repository.service.dao.impl.DBRepositoryDAOImpl;
  */
 public class DBRepositoryServiceImpl implements RepositoryService {
 
-	private DBRepositoryDAO dBRepositoryDAO = new DBRepositoryDAOImpl();
+	private DBRepositoryDAO dbRepositoryDAO = null;
+	
+	private ApplicationContext appContext = null;
 	
 	/**
 	 * The private constructor created to allow only instance of this class
@@ -51,8 +56,8 @@ public class DBRepositoryServiceImpl implements RepositoryService {
 	 */
 	public void create(GenericEntity genericEntity) {
 		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		String insertStatement = repositoryCommandResolver.resolveCreateStatementCommand(genericEntity);
-		this.getDBRepositoryDAO().insert(insertStatement);
+		String insertStatement = (String) repositoryCommandResolver.resolveCreateCommand(genericEntity);
+		this.getDbRepositoryDAO().insert(insertStatement);
 	}
 
 	/* (non-Javadoc)
@@ -60,8 +65,8 @@ public class DBRepositoryServiceImpl implements RepositoryService {
 	 */
 	public void update(GenericEntity genericEntity) {
 		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		String updateStatement = repositoryCommandResolver.resolveUpdateStatementCommand(genericEntity);
-		this.getDBRepositoryDAO().insert(updateStatement);
+		String updateStatement = (String) repositoryCommandResolver.resolveUpdateCommand(genericEntity);
+		this.getDbRepositoryDAO().insert(updateStatement);
 	}
 
 	/* (non-Javadoc)
@@ -69,8 +74,8 @@ public class DBRepositoryServiceImpl implements RepositoryService {
 	 */
 	public void delete(GenericEntity genericEntity) {
 		RepositoryCommandResolver repositoryCommandResolver = RepositoryCommandResolverFactory.valueOf(repositroyServiceName(),genericEntity.getClass().getName());
-		String deleteStatement = repositoryCommandResolver.resolveDeleteStatementCommand(genericEntity);
-		this.getDBRepositoryDAO().insert(deleteStatement);
+		String deleteStatement = (String) repositoryCommandResolver.resolveDeleteCommand(genericEntity);
+		this.getDbRepositoryDAO().insert(deleteStatement);
 	}
 	
 	
@@ -81,8 +86,22 @@ public class DBRepositoryServiceImpl implements RepositoryService {
 		return "DB";
 	}
 
-	private DBRepositoryDAO getDBRepositoryDAO() {
-		return dBRepositoryDAO;
+
+	/* (non-Javadoc)
+	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+	 */
+	@Override
+	public void setApplicationContext(ApplicationContext arg0)
+			throws BeansException {
+		appContext = arg0;	
+	}
+
+	public DBRepositoryDAO getDbRepositoryDAO() {
+		return dbRepositoryDAO;
+	}
+
+	public void setDbRepositoryDAO(DBRepositoryDAO dbRepositoryDAO) {
+		this.dbRepositoryDAO = dbRepositoryDAO;
 	}
 
 }

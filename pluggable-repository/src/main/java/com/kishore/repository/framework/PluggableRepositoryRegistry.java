@@ -3,13 +3,12 @@
  */
 package com.kishore.repository.framework;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.kishore.repository.provider.RepositoryProvider;
-import com.kishore.repository.provider.impl.DBRepositoryProvider;
-import com.kishore.repository.provider.impl.InMemoryRepositoryProvider;
-import com.kishore.repository.provider.impl.LDAPRepositoryProvider;
 import com.kishore.repository.service.RepositoryService;
 
 /**
@@ -18,23 +17,28 @@ import com.kishore.repository.service.RepositoryService;
  * @version 1.0
  * @since Release1
  */
-public class PluggableRepositoryFramework {
+public class PluggableRepositoryRegistry {
 
-	
+	ApplicationContext context =  null;
 	/**
 	 * The dynamic repository provider name to be hooked in during jvm startup
 	 */
 	private static final String CUSTOM_REPOSITORY_PROVIDER = System.getProperty("custom.repository.provider");
 	
-	private Map<String,RepositoryProvider> mapProviders = new LinkedHashMap<String, RepositoryProvider>(4);
+	//private Map<String,RepositoryProvider> mapProviders = new LinkedHashMap<String, RepositoryProvider>(4);
+	private Map<String,RepositoryProvider> mapProviders = null;
 	
 	/**
 	 * The private constructor created to allow only one instance of this class
 	 */
-	private PluggableRepositoryFramework() {
-			registerRepositoryProvider(InMemoryRepositoryProvider.getInstance());
+	private PluggableRepositoryRegistry() {
+			context =  new ClassPathXmlApplicationContext("pluggable-repository-framework.xml");
+			
+			/*registerRepositoryProvider(InMemoryRepositoryProvider.getInstance());
 			registerRepositoryProvider(DBRepositoryProvider.getInstance());
-			registerRepositoryProvider(LDAPRepositoryProvider.getInstance());
+			registerRepositoryProvider(LDAPRepositoryProvider.getInstance());*/
+			
+			mapProviders = (Map<String,RepositoryProvider>) context.getBean("registeredProviders");
 			if (CUSTOM_REPOSITORY_PROVIDER != null && !"".equals(CUSTOM_REPOSITORY_PROVIDER)) {
 				registerRepositoryProvider(CUSTOM_REPOSITORY_PROVIDER);
 			}
@@ -49,14 +53,14 @@ public class PluggableRepositoryFramework {
 		/**
 		 *  The static private pluggableRepositoryFramework
 		 */
-		private static PluggableRepositoryFramework pluggableRepositoryFramework = new PluggableRepositoryFramework();
+		private static PluggableRepositoryRegistry pluggableRepositoryFramework = new PluggableRepositoryRegistry();
 	}
 	
 	/**
-	 * Returns the singleton {@link PluggableRepositoryFramework}
-	 * @return The singleton {@link PluggableRepositoryFramework}
+	 * Returns the singleton {@link PluggableRepositoryRegistry}
+	 * @return The singleton {@link PluggableRepositoryRegistry}
 	 */
-	public static PluggableRepositoryFramework getInstance() {
+	public static PluggableRepositoryRegistry getInstance() {
 		return PluggableRepositoryFrameworkSingletonCreator.pluggableRepositoryFramework;
 	}
 	

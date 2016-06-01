@@ -3,6 +3,8 @@
  */
 package com.kishore.repository.service.dao.impl;
 
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+
 import com.kishore.repository.service.dao.DBRepositoryDAO;
 
 /**
@@ -10,13 +12,13 @@ import com.kishore.repository.service.dao.DBRepositoryDAO;
  * @version 1.0
  * @since Release1
  */
-public class DBRepositoryDAOImpl implements DBRepositoryDAO {
+public class DBRepositoryDAOImpl extends JdbcDaoSupport implements DBRepositoryDAO {
 
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.dao.DBRepositoryDAO#insert()
 	 */
 	public void insert(String insertStatement) {
-		// TODO Auto-generated method stub
+		getJdbcTemplate().execute(insertStatement);
 
 	}
 
@@ -24,16 +26,14 @@ public class DBRepositoryDAOImpl implements DBRepositoryDAO {
 	 * @see com.kishore.repository.service.dao.DBRepositoryDAO#delete()
 	 */
 	public void delete(String deleteStatement) {
-		// TODO Auto-generated method stub
-
+		getJdbcTemplate().execute(deleteStatement);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.kishore.repository.service.dao.DBRepositoryDAO#update()
 	 */
 	public void update(String updateStatement) {
-		// TODO Auto-generated method stub
-
+		getJdbcTemplate().execute(updateStatement);
 	}
 
 }

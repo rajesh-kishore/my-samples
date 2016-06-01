@@ -3,6 +3,8 @@
  */
 package com.kishore.repository.service;
 
+import org.springframework.context.ApplicationContextAware;
+
 import com.kishore.repository.generic.entity.GenericEntity;
 
 /**
@@ -10,7 +12,7 @@ import com.kishore.repository.generic.entity.GenericEntity;
  * @version 1.0
  * @since Release1
  */
-public interface RepositoryService {
+public interface RepositoryService extends ApplicationContextAware {
 
 	public void create(GenericEntity genericEntity);
 	
