@@ -1,0 +1,61 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+ 
+	<bean id="registeredProviders" class="java.util.LinkedHashMap" scope="singleton">
+			<constructor-arg> <!-- type="java.util.LinkedHashMap" -->
+		        <map key-type="java.lang.String"> <!--  value-type="com.kishore.repository.provider" -->
+	
+		            <entry key="com.kishore.repository.provider.LDAPRepositoryProvider" value-ref="com.kishore.repository.provider.LDAPRepositoryProvider" />
+		            <entry key="com.kishore.repository.provider.DBRepositoryProvider" value-ref="com.kishore.repository.provider.DBRepositoryProvider" />
+		            <entry key="com.kishore.repository.provider.InMemoryRepositoryProvider" value-ref="com.kishore.repository.provider.InMemoryRepositoryProvider" />
+		        </map>
+    		</constructor-arg>
+	</bean>
+	
+	<bean id="com.kishore.repository.provider.DBRepositoryProvider" class="com.kishore.repository.provider.impl.DBRepositoryProvider" factory-method="getInstance"/>
+	<bean id="com.kishore.repository.provider.LDAPRepositoryProvider" class="com.kishore.repository.provider.impl.LDAPRepositoryProvider" factory-method="getInstance"/>
+	<bean id="com.kishore.repository.provider.InMemoryRepositoryProvider" class="com.kishore.repository.provider.impl.InMemoryRepositoryProvider" factory-method="getInstance"/>
+	
+	<bean id="DBRepositoryServiceImpl" class="com.kishore.repository.service.impl.DBRepositoryServiceImpl" factory-method="getInstance">
+		<property name="dbRepositoryDAO" ref="DBRepositoryDAOImpl"></property>
+	</bean>
+	
+	
+	<bean id="DBRepositoryDAOImpl" class="com.kishore.repository.service.dao.impl.DBRepositoryDAOImpl" scope="singleton">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+        <property name="username" value="ordstest" />
+        <property name="password" value="welcome1" />
+    </bean>
+	
+	
+	<bean id="LDAPRepositoryServiceImpl" class="com.kishore.repository.service.impl.LDAPRepositoryServiceImpl" factory-method="getInstance">
+		<property name="ldapRepositoryDAO" ref="LDAPRepositoryDAOImpl"></property>
+	</bean>
+	
+	
+	<bean id="LDAPRepositoryDAOImpl" class="com.kishore.repository.service.dao.impl.LDAPRepositoryDAOImpl" scope="singleton">
+		<property name="ldapTemplate" ref="ldapTemplate"/>
+	</bean>
+	
+    
+    <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+        <property name="url" value="ldap://localhost:1389"/>
+        <property name="base" value="dc=lcm"/>
+        <property name="userDn" value="cn=Directory Manager"/>
+        <property name="password" value="Welcome1"/>                        
+    </bean>
+     
+    <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+        <constructor-arg ref="contextSource" />
+    </bean>
+	
+	
+</beans>
