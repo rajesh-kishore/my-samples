@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<conferencetalks>
+  <conferencetype>
+    <conferenceTalkTitle>Writing Fast Tests Against Enterprise Rails</conferenceTalkTitle>
+    <talkDurationWithUnit>60min</talkDurationWithUnit>
+  </conferencetype>
+  <conferencetype>
+    <conferenceTalkTitle>Overdoing it in Python</conferenceTalkTitle>
+    <talkDurationWithUnit>45min</talkDurationWithUnit>
+  </conferencetype>
+  <conferencetype>
+    <conferenceTalkTitle>Lua for the Masses</conferenceTalkTitle>
+    <talkDurationWithUnit>30min</talkDurationWithUnit>
+  </conferencetype>
+  <conferencetype>
+    <conferenceTalkTitle>Ruby Errors from Mismatched Gem Versions</conferenceTalkTitle>
+    <talkDurationWithUnit>45min</talkDurationWithUnit>
+  </conferencetype>
+  <conferencetype>
+    <conferenceTalkTitle>Common Ruby Errors</conferenceTalkTitle>
+    <talkDurationWithUnit>45min</talkDurationWithUnit>
+  </conferencetype>
+  <conferencetype>
+    <conferenceTalkTitle>Rails for Python Developers</conferenceTalkTitle>
+    <talkDurationWithUnit>lightning</talkDurationWithUnit>
+  </conferencetype>
+  <conferencetype>
+    <conferenceTalkTitle>Communicating Over Distance</conferenceTalkTitle>
+    <talkDurationWithUnit>60min</talkDurationWithUnit>
+  </conferencetype>
+</conferencetalks>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConfigurationBuilder.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core</a> &gt; <span class="el_source">ConfigurationBuilder.java</span></div><h1>ConfigurationBuilder.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core;
+
+import com.kishore.confmanagement.core.factories.DocumentParserFlyWeightFactory;
+import com.kishore.confmanagement.core.factories.DocumentParserFlyWeightFactory.PARSERTYPE;
+import com.kishore.confmanagement.extension.schedulingservice.spi.ConferenceSchedulerServiceProvider;
+
+/**
+ * The class is the builder class for creating configuration object. This is
+ * primary consumer facing class. &lt;code&gt;
+ * ConfigurationBuilder configurationBuilder =
+        ConfigurationBuilder.defaultConfigurationBuilder();
+ * or
+ * new ConfigurationBuilder(
+            ConfigurationBuilder.DEFAULT_CONFERENCE_SCHEDULER_SERVICE_PROVIDER);
+            
+ * &lt;/code&gt;
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public final class ConfigurationBuilder {
+
+  /**
+   * The default talk length unit.
+   */
+  private static final String DEFAULT_TALK_LENGTH_UNIT = &quot;min&quot;;
+
+  /**
+   * The default parser type.
+   */
+<span class="fc" id="L36">  private static final DocumentParserFlyWeightFactory.PARSERTYPE PARSER_TYPE =</span>
+      DocumentParserFlyWeightFactory.PARSERTYPE.XML;
+  /**
+   * The parser type for processing the document.
+   */
+<span class="fc" id="L41">  private DocumentParserFlyWeightFactory.PARSERTYPE parserType =</span>
+      PARSER_TYPE;
+
+  /**
+   * The default provider class name for
+   * {@link ConferenceSchedulerServiceProvider}
+   */
+  public static final String DEFAULT_CONFERENCE_SCHEDULER_SERVICE_PROVIDER =
+      &quot;com.kishore.confmanagement.extension.defaultextensionimpl.provider&quot;
+          + &quot;.DefaultConferenceSchedulerProvider&quot;;
+
+  /**
+   * The default configuration builder.
+   */
+  private static final ConfigurationBuilder DEFAULT_CONFIGURATION_BUILDER;
+
+  static {
+<span class="fc" id="L58">    DEFAULT_CONFIGURATION_BUILDER =</span>
+        new ConfigurationBuilder(DEFAULT_CONFERENCE_SCHEDULER_SERVICE_PROVIDER);
+<span class="fc" id="L60">    DEFAULT_CONFIGURATION_BUILDER.setTalkLengthUnit(DEFAULT_TALK_LENGTH_UNIT);</span>
+<span class="fc" id="L61">    DEFAULT_CONFIGURATION_BUILDER.setDefaultParserType(PARSER_TYPE);</span>
+<span class="fc" id="L62">  }</span>
+
+  /**
+   * The implementor provider class name for
+   * {@link ConferenceSchedulerServiceProvider}.
+   */
+  final private String conferenceSchedulerServiceProvider;
+
+  /**
+   * The possible duration for the day.
+   * 
+   * @deprecated
+   */
+  @Deprecated
+  private Integer totalPossibleDurationForTheDay;
+
+  /**
+   * The talk length unit such as min, hour.
+   */
+  private String talkLengthUnit;
+
+  /**
+   * The default and only constructor visible to consumer, which expects the
+   * implementor provider class name for
+   * {@link ConferenceSchedulerServiceProvider} , consumer can use the
+   * Configuration with default object using {@link #buildConfiguration()}.
+   * 
+   * @param conferenceSchedulerServiceProviderClassName The class name for
+   *          provider.
+   */
+  public ConfigurationBuilder(String
+<span class="fc" id="L93">      conferenceSchedulerServiceProviderClassName) {</span>
+<span class="fc" id="L94">    this.conferenceSchedulerServiceProvider =</span>
+        conferenceSchedulerServiceProviderClassName;
+<span class="fc" id="L96">  }</span>
+
+  /**
+   * Sets the default parser type. Default is set to XML parser type.
+   * 
+   * @param defaultParserType The parser type.
+   * @return The {@link ConfigurationBuilder} instance.
+   */
+  public final ConfigurationBuilder setDefaultParserType(
+      PARSERTYPE defaultParserType) {
+<span class="fc" id="L106">    this.parserType = defaultParserType;</span>
+<span class="fc" id="L107">    return this;</span>
+  }
+
+  /**
+   * @return the conferenceSchedulerStrategy
+   */
+  final String conferenceSchedulerServiceProvider() {
+<span class="fc" id="L114">    return conferenceSchedulerServiceProvider;</span>
+  }
+
+  /**
+   * @return the totalPossibleDurationForTheDay
+   */
+  @Deprecated
+  public final Integer totalPossibleDurationForTheDay() {
+<span class="fc" id="L122">    return totalPossibleDurationForTheDay;</span>
+  }
+
+  /**
+   * The method returns the talk length unit configured, default is min.
+   * 
+   * @return the talkLengthUnit
+   */
+  public final String talkLengthUnit() {
+<span class="fc" id="L131">    return talkLengthUnit;</span>
+  }
+
+  /**
+   * The talk length unit name to be set.
+   * 
+   * @param talkLengthUnit the talkLengthUnit to set
+   * @return the {@link ConfigurationBuilder}
+   */
+  public final ConfigurationBuilder setTalkLengthUnit(String talkLengthUnit) {
+<span class="fc" id="L141">    this.talkLengthUnit = talkLengthUnit;</span>
+<span class="fc" id="L142">    return this;</span>
+  }
+
+  /**
+   * Returns the default configuration instance.
+   * 
+   * @return The default {@link Configuration} instance.
+   */
+  public Configuration defaultConfiguration() {
+<span class="nc" id="L151">    return new Configuration(DEFAULT_CONFIGURATION_BUILDER);</span>
+  }
+
+  /**
+   * Builds the configuration.
+   * 
+   * @return The {@link Configuration} instance.
+   */
+  public Configuration buildConfiguration() {
+<span class="fc" id="L160">    return new Configuration(this);</span>
+  }
+
+  /**
+   * The default configuration builder.
+   * 
+   * @return the defaultConfigurationBuilder
+   */
+  public static final ConfigurationBuilder defaultConfigurationBuilder() {
+<span class="fc" id="L169">    return DEFAULT_CONFIGURATION_BUILDER;</span>
+  }
+
+  /**
+   * Returns the parser type configured, defaults to XML.
+   * 
+   * @return the parserType
+   */
+  public final DocumentParserFlyWeightFactory.PARSERTYPE parserType() {
+<span class="fc" id="L178">    return parserType;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

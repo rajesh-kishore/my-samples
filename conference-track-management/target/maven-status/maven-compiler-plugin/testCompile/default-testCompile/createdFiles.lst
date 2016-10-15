@@ -1,0 +1,6 @@
+com\kishore\confmanagement\core\tests\vos\tracks\TrackTest.class
+com\kishore\confmanagement\core\tests\vos\talks\ConferenceTalkTest.class
+com\kishore\confmanagement\core\tests\ConferenceTalkValidationTest.class
+com\kishore\confmanagement\extension\tests\defaultextensionimpl\FirstSchedulingStrategyTest.class
+com\kishore\confmanagement\core\tests\ConferenceManagerTest.class
+com\kishore\confmanagement\core\tests\ConfigurationBuilderTest.class

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LoggerAdapter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.common.loggers</a> &gt; <span class="el_source">LoggerAdapter.java</span></div><h1>LoggerAdapter.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.common.loggers;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public final class LoggerAdapter extends BaseLogger {
+
+  /**
+   * The logger name.
+   */
+  private static final String LOGGER_NAME = &quot;com.kishore.confmanagement&quot;;
+
+  /**
+   * The resource bundle base name required for translation.
+   */
+  private static final String RESOURCE_BUNDLE_NAME =
+      &quot;logging&quot;;
+
+  /**
+   * The JUL logger as of now.
+   */
+<span class="fc" id="L31">  private static final Logger logger = Logger.getLogger(</span>
+      LOGGER_NAME, RESOURCE_BUNDLE_NAME);
+
+  /**
+   * The private constructor.
+   */
+<span class="fc" id="L37">  private LoggerAdapter() {</span>
+
+<span class="fc" id="L39">  }</span>
+
+  /**
+   * The helper class to create the singleton instance.
+   * 
+   * @author Rajesh Kishore
+   * @version 1.0
+   * @since V1
+   */
+<span class="nc" id="L48">  private static class LoggerAdapterSingletonCreator {</span>
+<span class="fc" id="L49">    private static LoggerAdapter loggerAdapter = new LoggerAdapter();</span>
+  }
+
+  /**
+   * Returns the singleton instance of this class.
+   * 
+   * @return The singleton instance of this class.
+   */
+  public static LoggerAdapter getInstance() {
+<span class="fc" id="L58">    return LoggerAdapterSingletonCreator.loggerAdapter;</span>
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.kishore.confmanagement.common.loggers.BaseLogger#logInfo(java.
+   * lang.String, java.lang.Object[])
+   */
+  @Override
+  public void logInfo(String code, Object[] params) {
+<span class="fc" id="L70">    getLogger().log(Level.INFO, code, params);</span>
+<span class="fc" id="L71">  }</span>
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.kishore.confmanagement.common.loggers.BaseLogger#logFinest(java
+   * .lang.String)
+   */
+  @Override
+  public void logFinest(String message) {
+<span class="fc" id="L82">    getLogger().log(Level.FINEST, message);</span>
+
+<span class="fc" id="L84">  }</span>
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.kishore.confmanagement.common.loggers.BaseLogger#logSevere(java
+   * .lang.String, java.lang.Object[])
+   */
+  @Override
+  public void logSevere(String code, Throwable throwable) {
+<span class="nc" id="L95">    getLogger().log(Level.SEVERE, code, throwable);</span>
+
+<span class="nc" id="L97">  }</span>
+
+  /**
+   * @return the logger
+   */
+  public static final Logger getLogger() {
+<span class="fc" id="L103">    return logger;</span>
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.kishore.confmanagement.common.loggers.BaseLogger#logWarning(java
+   * .lang.String, java.lang.Object[])
+   */
+  @Override
+  public void logWarning(String code, Object[] params) {
+<span class="nc" id="L115">    getLogger().log(Level.WARNING, code, params);</span>
+<span class="nc" id="L116">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

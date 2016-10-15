@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TrackFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core.factories</a> &gt; <span class="el_source">TrackFactory.java</span></div><h1>TrackFactory.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core.factories;
+
+import com.kishore.confmanagement.core.vos.tracks.StandardTrack;
+import com.kishore.confmanagement.core.vos.tracks.Track;
+
+/**
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+<span class="nc" id="L15">public final class TrackFactory {</span>
+
+  /**
+   * The track, types.
+   * 
+   * @author Rajesh Kishore
+   * @version 1.0
+   * @since V1
+   */
+<span class="pc" id="L24">  public static enum TrackTypes {</span>
+<span class="fc" id="L25">    STANDARD_TRACK</span>
+  };
+
+  /**
+   * The factory method to create the track.
+   * 
+   * @param trackType one of the types mentioned in {@link TrackTypes}
+   * @param sequence to be passed by the consumer.
+   * @return instance of one of the sub types of {@link Track}
+   */
+  public static Track createTrack(TrackTypes trackType, Integer sequence) {
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">    if (trackType == TrackTypes.STANDARD_TRACK) {</span>
+<span class="fc" id="L37">      return new StandardTrack(sequence);</span>
+    }
+<span class="nc" id="L39">    return new StandardTrack(sequence);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

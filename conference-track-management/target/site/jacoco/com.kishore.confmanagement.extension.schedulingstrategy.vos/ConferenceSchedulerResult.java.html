@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConferenceSchedulerResult.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.extension.schedulingstrategy.vos</a> &gt; <span class="el_source">ConferenceSchedulerResult.java</span></div><h1>ConferenceSchedulerResult.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.extension.schedulingstrategy.vos;
+
+import java.util.List;
+
+import com.kishore.confmanagement.core.vos.tracks.Track;
+
+/**
+ * The class encapsulates the scheduled result.
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public abstract class ConferenceSchedulerResult {
+
+  /**
+   * The outcome.
+   */
+  protected final SchedulerOutcome schedulerOutcome;
+
+  /**
+   * The list of tracks obtained out of result.
+   */
+  protected final List&lt;Track&gt; tracks;
+
+  /*
+   * public final static ConferenceSchedulerResult NOTEXECUTED = new
+   * ConferenceSchedulerResult();
+   */
+
+  /**
+   * The scheduler outcome.
+   * 
+   * @author Rajesh Kishore
+   * @version 1.0
+   * @since V1
+   */
+<span class="pc" id="L42">  public enum SchedulerOutcome {</span>
+<span class="fc" id="L43">    EXECUTED, ERROR</span>
+  };
+
+  /**
+   * The protected constructor.
+   * 
+   * @param outcome The {@link SchedulerOutcome}.
+   * @param tracks The list of {@link Track}
+   */
+  protected ConferenceSchedulerResult(SchedulerOutcome outcome,
+<span class="fc" id="L53">      List&lt;Track&gt; tracks) {</span>
+<span class="fc" id="L54">    this.schedulerOutcome = outcome;</span>
+<span class="fc" id="L55">    this.tracks = tracks;</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">    if (outcome == SchedulerOutcome.EXECUTED) {</span>
+<span class="fc" id="L57">      updateSessionWithDefaultTalk(tracks);</span>
+    }
+<span class="fc" id="L59">  }</span>
+
+  /**
+   * Updates the result, be default it does not do anything. The subclass has to
+   * update this.
+   * 
+   * @param tracks The track list.
+   */
+  protected void updateSessionWithDefaultTalk(List&lt;Track&gt; tracks) {
+    // does nothing by default
+<span class="nc" id="L69">  }</span>
+
+  /**
+   * The result outcome {@link #schedulerOutcome}.
+   * 
+   * @return The outcome {@link SchedulerOutcome}
+   */
+  public abstract SchedulerOutcome outcome();
+
+  /**
+   * The result list in form of {@link Track}.
+   * 
+   * @return The list of tracks.
+   */
+  public abstract List&lt;Track&gt; result();
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

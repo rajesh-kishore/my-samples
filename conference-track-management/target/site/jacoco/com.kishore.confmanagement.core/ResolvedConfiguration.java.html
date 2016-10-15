@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ResolvedConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core</a> &gt; <span class="el_source">ResolvedConfiguration.java</span></div><h1>ResolvedConfiguration.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.text.html.parser.DocumentParser;
+
+import com.kishore.confmanagement.core.factories.DocumentParserFlyWeightFactory;
+import com.kishore.confmanagement.core.parsers.DocumentProcessingParser;
+import com.kishore.confmanagement.core.resolvers.ConfigurationResolver;
+import com.kishore.confmanagement.core.vos.sessions.ConferenceSession;
+import com.kishore.confmanagement.extension.schedulingservice.spi.ConferenceSchedulerServiceProvider;
+import com.kishore.confmanagement.extension.schedulingstrategy.api.ConferenceSchedulerStrategy;
+import com.kishore.confmanagement.extension.validators.vos.Validator;
+
+/**
+ * The class is resolved configuration provided by client in form of
+ * {@link Configuration}. The class can be used by the core engine and hence not
+ * exposed intentionally.
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+final class ResolvedConfiguration {
+
+  /**
+   * The resolved document processing parser.
+   */
+  final private DocumentProcessingParser parser;
+
+  /**
+   * The unmodifiable list of validators provided by
+   * {@link ConferenceSchedulerServiceProvider} implementor.
+   */
+<span class="fc" id="L40">  final private List&lt;Validator&gt; confManagementValidators = new</span>
+      LinkedList&lt;Validator&gt;();
+
+  /**
+   * The scheduling strategy provided by
+   * {@link ConferenceSchedulerServiceProvider} implementor.
+   */
+  final private ConferenceSchedulerStrategy conferenceSchedulerStrategy;
+
+<span class="fc" id="L49">  final private List&lt;ConferenceSession&gt; conferenceSessions =</span>
+      new LinkedList&lt;ConferenceSession&gt;();
+
+  /**
+   * Total possible duration for the day.
+   * 
+   * @deprecated
+   */
+  @Deprecated
+  final private Integer totalPossibleDurationForTheDay;
+
+  /**
+   * The talk length unit such as min, hour, etc.
+   */
+  final private String talkLengthUnit;
+
+  /**
+   * The package level constructor to be used only for the internal working of
+   * Engine.
+   * 
+   * @param configuration The instance to {@link Configuration}, which is a raw
+   *          configuration.
+   */
+<span class="fc" id="L72">  ResolvedConfiguration(Configuration configuration) {</span>
+<span class="fc" id="L73">    final ConferenceSchedulerServiceProvider resolvedProvider =</span>
+        ConfigurationResolver
+<span class="fc" id="L75">            .resolveConferenceSchedulerServiceProvider(configuration</span>
+<span class="fc" id="L76">                .conferenceSchedulerServiceProvider());</span>
+<span class="fc" id="L77">    this.conferenceSchedulerStrategy = resolvedProvider.schedulerStrategy();</span>
+<span class="fc" id="L78">    extractConferenceSchedulerServiceProviderInfo(configuration,</span>
+        resolvedProvider);
+<span class="fc" id="L80">    this.talkLengthUnit = configuration.talkLengthUnit();</span>
+<span class="fc" id="L81">    this.totalPossibleDurationForTheDay = configuration</span>
+<span class="fc" id="L82">        .totalPossibleDurationForTheDay();</span>
+<span class="fc" id="L83">    this.parser =</span>
+<span class="fc" id="L84">        DocumentParserFlyWeightFactory.getParserInstance(configuration</span>
+<span class="fc" id="L85">            .parserType());</span>
+<span class="fc" id="L86">  }</span>
+
+  /**
+   * Extract and sets the {@link ConferenceSchedulerServiceProvider} info.
+   * 
+   * @param configuration The raw {@link Configuration}
+   * @param resolvedConferenceSchedulerServiceProvider
+   */
+  private void extractConferenceSchedulerServiceProviderInfo(
+      Configuration configuration,
+      ConferenceSchedulerServiceProvider
+      resolvedConferenceSchedulerServiceProvider) {
+<span class="fc" id="L98">    setConfManagementValidators(resolvedConferenceSchedulerServiceProvider</span>
+<span class="fc" id="L99">        .validators());</span>
+
+<span class="fc" id="L101">  }</span>
+
+  /**
+   * Sets the resolved {@link Validator} list.
+   * 
+   * @param confManagementValidators the confManagementValidators to set
+   */
+  private final void setConfManagementValidators(
+      List&lt;Validator&gt; confManagementValidators) {
+<span class="fc" id="L110">    this.confManagementValidators.addAll(confManagementValidators);</span>
+<span class="fc" id="L111">  }</span>
+
+  /**
+   * Sets the conference sessions.
+   * 
+   * @param conferenceSessions the conferenceSessions to set
+   */
+  /*
+   * private final void setConferenceSessions( List&lt;ConferenceSession&gt;
+   * conferenceSessions) { // this.conferenceSessions = conferenceSessions; }
+   */
+
+  /**
+   * Returns the unmodifiable list of validators provided by
+   * {@link ConferenceSchedulerServiceProvider} implementor. Any modification to
+   * the list will throw Exception.
+   * 
+   * @return the confManagementValidators
+   */
+  final List&lt;Validator&gt; confManagementValidators() {
+<span class="fc" id="L131">    return confManagementValidators;</span>
+  }
+
+  /**
+   * Returns the resolved {@link ConferenceSchedulerStrategy}.
+   * 
+   * @return the conferenceSchedulerStrategy
+   */
+  final ConferenceSchedulerStrategy conferenceSchedulerStrategy() {
+<span class="fc" id="L140">    return conferenceSchedulerStrategy;</span>
+  }
+
+  /**
+   * Returns the unmodifiable list of sessions configured. Any modification to
+   * the list will throw Exception.
+   * 
+   * @return the conferenceSessions
+   */
+  final List&lt;ConferenceSession&gt; conferenceSessions() {
+<span class="nc" id="L150">    return conferenceSessions;</span>
+  }
+
+  /**
+   * @return the totalPossibleDurationForTheDay
+   */
+  final Integer totalPossibleDurationForTheDay() {
+<span class="fc" id="L157">    return totalPossibleDurationForTheDay;</span>
+  }
+
+  /**
+   * The talk length unit.
+   * 
+   * @return the talkLengthUnit such as min, hour.
+   */
+  final String talkLengthUnit() {
+<span class="fc" id="L166">    return talkLengthUnit;</span>
+  }
+
+  /**
+   * Returns boolean value based on if there are resolved validators.
+   * 
+   * @return TRUE when there are validators else FALSE.
+   */
+  final Boolean hasValidators() {
+<span class="nc bnc" id="L175" title="All 2 branches missed.">    return (confManagementValidators != null</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">    &amp;&amp; confManagementValidators.isEmpty());</span>
+  }
+
+  /**
+   * Returns the resolved {@link DocumentParser}.
+   * 
+   * @return the parser.
+   */
+  final DocumentProcessingParser getParser() {
+<span class="fc" id="L185">    return parser;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

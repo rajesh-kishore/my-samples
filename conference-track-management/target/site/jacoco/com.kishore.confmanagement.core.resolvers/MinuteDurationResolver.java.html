@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MinuteDurationResolver.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core.resolvers</a> &gt; <span class="el_source">MinuteDurationResolver.java</span></div><h1>MinuteDurationResolver.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core.resolvers;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.kishore.confmanagement.common.constants.Constants;
+
+/**
+ * The utility class provides the api to resolve the time duration.
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+<span class="fc" id="L23">public final class MinuteDurationResolver implements DurationResolver {</span>
+
+<span class="fc" id="L25">  private static final SimpleDateFormat TIME_DATE_FORMAT =</span>
+      new SimpleDateFormat(&quot;hh:mm a&quot;);
+
+  /**
+   * The utility api to return the time duration in minutes.
+   * 
+   * @param startTime The start time in format 10:00 am or 10:00 am. or 10:00 AM
+   *          or 10:00 AM.
+   * @param endTime The end time in format 10:00 am or 10:00 am. or 10:00 AM or
+   *          10:00 AM.
+   * @return The duration in minute.
+   */
+  @Override
+  public int resolveTimeDurationInUnit(String startTime,
+      String endTime) {
+
+<span class="fc" id="L41">    int totalDurationInMinutes = 0;</span>
+
+    try {
+
+<span class="fc" id="L45">      final long parsedStartTime =</span>
+<span class="fc" id="L46">          TIME_DATE_FORMAT.parse(startTime).getTime();</span>
+<span class="fc" id="L47">      final long parsedEndTime = TIME_DATE_FORMAT.parse(endTime).getTime();</span>
+<span class="fc" id="L48">      int difference = 0;</span>
+<span class="fc" id="L49">      difference = (int) (parsedEndTime - parsedStartTime);</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">      totalDurationInMinutes =</span>
+          (difference &lt; 0 ? -difference : difference) / 60000;
+<span class="fc" id="L52">      return totalDurationInMinutes;</span>
+<span class="nc" id="L53">    } catch (ParseException e) {</span>
+<span class="nc" id="L54">      LOGGER.logSevere(Constants.EXCEPTION_IN_PARSING,</span>
+          e);
+    }
+<span class="nc" id="L57">    return totalDurationInMinutes;</span>
+  }
+
+  /**
+   * The utility api to return the actual start time in time format such as
+   * 10:00 am.
+   * 
+   * @param endTime The start time in format 10:00 am or 10:00 am. or 10:00 AM
+   *          or 10:00 AM.
+   * @param leftOverTimeInMinute The left over time in minute.
+   * @return The start time in time format.
+   */
+  @Override
+  public String resolveTimeinHourFormat(String endTime,
+      int leftOverTimeInMinute) {
+
+<span class="fc" id="L73">    Date date = null;</span>
+    try {
+<span class="fc" id="L75">      date = TIME_DATE_FORMAT.parse(endTime);</span>
+<span class="nc" id="L76">    } catch (ParseException e) {</span>
+<span class="nc" id="L77">      LOGGER.logSevere(Constants.EXCEPTION_IN_PARSING,</span>
+          e);
+<span class="nc" id="L79">      return endTime;</span>
+<span class="fc" id="L80">    }</span>
+<span class="fc" id="L81">    Calendar cal = Calendar.getInstance();</span>
+<span class="fc" id="L82">    cal.setTime(date);</span>
+<span class="fc" id="L83">    cal.add(Calendar.MINUTE, -leftOverTimeInMinute);</span>
+<span class="fc" id="L84">    String actualStarTime = TIME_DATE_FORMAT.format(cal.getTime());</span>
+
+<span class="fc" id="L86">    return actualStarTime;</span>
+  }
+
+  /**
+   * The utility api returns the resolved talk duration in minute.In case of
+   * error it returns 5;
+   * 
+   * @param talkDurationWithUnit The talk duration in minute , correct api
+   *          expectation format - 20min or lightening
+   * @return The resolved duration and unit as map.
+   */
+  @Override
+  public Map&lt;String, Object&gt; talkDurationResolver(String talkDurationWithUnit) {
+
+<span class="fc" id="L100">    Map&lt;String, Object&gt; resolvedTalkDuration = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L101">    resolvedTalkDuration.put(&quot;RESOLVEDUNIT&quot;, &quot;min&quot;);</span>
+
+<span class="fc" id="L103">    Integer resolvedDuration = 5;</span>
+<span class="fc" id="L104">    resolvedTalkDuration.put(&quot;RESOLVEDDURATION&quot;, resolvedDuration);</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">    if (talkDurationWithUnit == null) {</span>
+<span class="nc" id="L106">      LOGGER.logFinest(resolvedDuration.toString());</span>
+<span class="nc" id="L107">      return resolvedTalkDuration;</span>
+    }
+
+<span class="fc bfc" id="L110" title="All 2 branches covered.">    if (&quot;lightning&quot;.equalsIgnoreCase(talkDurationWithUnit)) {</span>
+<span class="fc" id="L111">      LOGGER.logFinest(&quot;lightning duration &quot; + talkDurationWithUnit);</span>
+<span class="fc" id="L112">      return resolvedTalkDuration;</span>
+    }
+
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">    if (!talkDurationWithUnit.contains(&quot;min&quot;)) {</span>
+<span class="nc" id="L116">      return resolvedTalkDuration;</span>
+    }
+
+<span class="fc" id="L119">    LOGGER.logFinest(talkDurationWithUnit.substring(0,</span>
+<span class="fc" id="L120">        talkDurationWithUnit.indexOf(&quot;min&quot;)));</span>
+
+<span class="fc" id="L122">    String extractedTalkDuration = talkDurationWithUnit.substring(0,</span>
+<span class="fc" id="L123">        talkDurationWithUnit.indexOf(&quot;min&quot;)).trim();</span>
+
+    try {
+<span class="fc" id="L126">      resolvedDuration = Integer.valueOf(extractedTalkDuration);</span>
+<span class="fc" id="L127">      resolvedTalkDuration.put(&quot;RESOLVEDDURATION&quot;, resolvedDuration);</span>
+<span class="nc" id="L128">    } catch (Exception e) {</span>
+<span class="nc" id="L129">      LOGGER.logSevere(Constants.EXCEPTION_IN_PARSING,</span>
+          e);
+<span class="nc" id="L131">      return resolvedTalkDuration;</span>
+<span class="fc" id="L132">    }</span>
+
+<span class="fc" id="L134">    return resolvedTalkDuration;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

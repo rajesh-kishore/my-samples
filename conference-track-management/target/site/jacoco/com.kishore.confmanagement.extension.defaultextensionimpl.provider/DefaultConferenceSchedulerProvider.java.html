@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DefaultConferenceSchedulerProvider.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.extension.defaultextensionimpl.provider</a> &gt; <span class="el_source">DefaultConferenceSchedulerProvider.java</span></div><h1>DefaultConferenceSchedulerProvider.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.extension.defaultextensionimpl.provider;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.kishore.confmanagement.extension.defaultextensionimpl.schedulingstrategy.FirstFitStrategy;
+import com.kishore.confmanagement.extension.defaultextensionimpl.validator.MaxConferenceTalkDurationValidator;
+import com.kishore.confmanagement.extension.schedulingservice.spi.ConferenceSchedulerServiceProvider;
+import com.kishore.confmanagement.extension.schedulingstrategy.api.ConferenceSchedulerStrategy;
+import com.kishore.confmanagement.extension.validators.vos.Validator;
+
+/**
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+<span class="fc" id="L22">public final class DefaultConferenceSchedulerProvider implements</span>
+    ConferenceSchedulerServiceProvider {
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.kishore.confmanagement.schedulingservice.spi.
+   * ConferenceSchedulerServiceProvider#schedulerStrategy()
+   */
+  @Override
+  public ConferenceSchedulerStrategy schedulerStrategy() {
+<span class="fc" id="L33">    return new FirstFitStrategy();</span>
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.kishore.confmanagement.schedulingservice.spi.
+   * ConferenceSchedulerServiceProvider#validators()
+   */
+  @Override
+  public List&lt;Validator&gt; validators() {
+<span class="fc" id="L44">    List&lt;Validator&gt; validators = new LinkedList&lt;Validator&gt;();</span>
+<span class="fc" id="L45">    validators.add(new MaxConferenceTalkDurationValidator());</span>
+<span class="fc" id="L46">    return Collections.unmodifiableList(validators);</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

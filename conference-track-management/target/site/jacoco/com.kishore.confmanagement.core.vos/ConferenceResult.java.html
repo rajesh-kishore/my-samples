@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConferenceResult.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core.vos</a> &gt; <span class="el_source">ConferenceResult.java</span></div><h1>ConferenceResult.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core.vos;
+
+import com.kishore.confmanagement.extension.schedulingstrategy.vos.ConferenceSchedulerResult;
+import com.kishore.confmanagement.extension.schedulingstrategy.vos.ConferenceSchedulerResult.SchedulerOutcome;
+import com.kishore.confmanagement.extension.validators.vos.ValidationResult;
+import com.kishore.confmanagement.extension.validators.vos.ValidationResult.ValidationOutCome;
+
+/**
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public final class ConferenceResult {
+
+  private ValidationResult validationResult;
+
+  private ConferenceSchedulerResult conferenceSchedulerResult;
+
+  private ConferenceResult(ValidationResult validationResult,
+<span class="fc" id="L24">      ConferenceSchedulerResult conferenceSchedulerResult) {</span>
+<span class="fc" id="L25">    this.validationResult = validationResult;</span>
+<span class="fc" id="L26">    this.conferenceSchedulerResult = conferenceSchedulerResult;</span>
+<span class="fc" id="L27">  }</span>
+
+  /**
+   * The factory method to create the instance of {@link ConferenceResult}
+   * 
+   * @param validationResult The {@link ValidationResult}
+   * @return The {@link ConferenceResult} instance.
+   */
+  public static ConferenceResult createConferenceResultByValidationFailed(
+      ValidationResult validationResult) {
+<span class="fc" id="L37">    return new ConferenceResult(validationResult,null);</span>
+  }
+
+  /**
+   * The factory method to create overall result.
+   * 
+   * @param validationResult The {@link ValidationResult}
+   * @param conferenceSchedulerResult The {@link ConferenceSchedulerResult}
+   * @return The {@link ConferenceResult}
+   */
+  public static ConferenceResult
+      createConferenceResultByConferenceSchedulerResult(
+          ValidationResult validationResult,
+          ConferenceSchedulerResult conferenceSchedulerResult) {
+<span class="fc" id="L51">    return new ConferenceResult(validationResult,conferenceSchedulerResult);</span>
+  }
+
+  /**
+   * @return the validationResult
+   */
+  public final ValidationResult validationResult() {
+<span class="fc" id="L58">    return validationResult;</span>
+  }
+
+  /**
+   * @return the conferenceSchedulerResult
+   */
+  public final ConferenceSchedulerResult conferenceSchedulerResult() {
+<span class="fc" id="L65">    return conferenceSchedulerResult;</span>
+  }
+
+  /**
+   * The foreign method defined in this class for easier access.
+   * 
+   * @return The validation outcome defined as {@link ValidationOutCome}
+   */
+  public ValidationOutCome validationOutCome() {
+<span class="fc" id="L74">    return validationResult().validationOutCome();</span>
+  }
+
+  /**
+   * The foreign method defined in this class for easier access of
+   * ConferenceSchedulerResult outcome.
+   * 
+   * @return The validation outcome defined as {@link SchedulerOutcome}
+   */
+  public SchedulerOutcome schedulerOutcome() {
+<span class="fc" id="L84">    return conferenceSchedulerResult().outcome();</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

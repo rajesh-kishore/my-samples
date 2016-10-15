@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/conferenctalk" xmlns:tns="http://www.example.org/conferenctalk" elementFormDefault="qualified">
+
+    
+    <element name="conferencetalks" type="tns:conferencetalks"/>
+    
+    <complexType name="conferencetalks">
+    	<sequence>
+    		<element name="conferencetype" type="tns:conferencetalk" maxOccurs="unbounded"/>
+    	</sequence>
+    </complexType>
+
+    <complexType name="conferencetalk">
+    	<sequence>
+    		<element name="conferenceTalkTitle" type="string"></element>
+    		<element name="talkDurationWithUnit" type="string"></element>
+    	</sequence>
+    </complexType>
+    
+</schema>

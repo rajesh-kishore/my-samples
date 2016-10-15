@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="26" passed="26">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="708" started-at="2016-10-15T10:01:59Z" finished-at="2016-10-15T10:02:00Z">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="708" started-at="2016-10-15T10:01:59Z" finished-at="2016-10-15T10:02:00Z">
+      <class name="com.kishore.confmanagement.core.tests.ConferenceManagerTest">
+        <test-method status="PASS" signature="configurationManagerTest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConferenceManagerTest@49d904ec]" name="configurationManagerTest" duration-ms="200" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- configurationManagerTest -->
+        <test-method status="PASS" signature="resolvedConferenceScheduleStratgeyTest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConferenceManagerTest@49d904ec]" name="resolvedConferenceScheduleStratgeyTest" duration-ms="4" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resolvedConferenceScheduleStratgeyTest -->
+        <test-method status="PASS" signature="proveNonSingletonConfigurationManagerTest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConferenceManagerTest@49d904ec]" name="proveNonSingletonConfigurationManagerTest" duration-ms="0" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- proveNonSingletonConfigurationManagerTest -->
+      </class> <!-- com.kishore.confmanagement.core.tests.ConferenceManagerTest -->
+      <class name="com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest">
+        <test-method status="PASS" signature="conferenceTalkCreationTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="conferenceTalkCreationTest" duration-ms="41" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceTalkCreationTest -->
+        <test-method status="PASS" signature="conferenceTalkNotEqualsTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="conferenceTalkNotEqualsTest" duration-ms="1" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceTalkNotEqualsTest -->
+        <test-method status="PASS" signature="conferenceTalkEqualsTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="conferenceTalkEqualsTest" duration-ms="0" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceTalkEqualsTest -->
+        <test-method status="PASS" signature="conferenceTalkScheduledStartTimeTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="conferenceTalkScheduledStartTimeTest" duration-ms="0" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceTalkScheduledStartTimeTest -->
+        <test-method status="PASS" signature="defaultNoConferenceTalkTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="defaultNoConferenceTalkTest" duration-ms="1" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- defaultNoConferenceTalkTest -->
+        <test-method status="PASS" signature="normalTalkScheduledTimeFlexibilityTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="normalTalkScheduledTimeFlexibilityTest" duration-ms="0" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- normalTalkScheduledTimeFlexibilityTest -->
+        <test-method status="PASS" signature="resolvedConferenceTalkDurationUnitTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="resolvedConferenceTalkDurationUnitTest" duration-ms="1" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resolvedConferenceTalkDurationUnitTest -->
+        <test-method status="PASS" signature="specialNetworkingTalkTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest@63021689]" name="specialNetworkingTalkTest" duration-ms="0" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- specialNetworkingTalkTest -->
+      </class> <!-- com.kishore.confmanagement.core.tests.vos.talks.ConferenceTalkTest -->
+      <class name="com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest">
+        <test-method status="PASS" signature="conferenceSchedulingStrategyWithFirstInputTest()[pri:0, instance:com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest@3e92efc3]" name="conferenceSchedulingStrategyWithFirstInputTest" duration-ms="112" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceSchedulingStrategyWithFirstInputTest -->
+        <test-method status="PASS" signature="conferenceSchedulingStrategyWithFourthInputTest()[pri:0, instance:com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest@3e92efc3]" name="conferenceSchedulingStrategyWithFourthInputTest" duration-ms="77" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceSchedulingStrategyWithFourthInputTest -->
+        <test-method status="PASS" signature="conferenceSchedulingStrategyWithInputStreamTest()[pri:0, instance:com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest@3e92efc3]" name="conferenceSchedulingStrategyWithInputStreamTest" duration-ms="53" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceSchedulingStrategyWithInputStreamTest -->
+        <test-method status="PASS" signature="conferenceSchedulingStrategyWithSecondInputTest()[pri:0, instance:com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest@3e92efc3]" name="conferenceSchedulingStrategyWithSecondInputTest" duration-ms="10" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceSchedulingStrategyWithSecondInputTest -->
+        <test-method status="PASS" signature="conferenceSchedulingStrategyWithThirdInputTest()[pri:0, instance:com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest@3e92efc3]" name="conferenceSchedulingStrategyWithThirdInputTest" duration-ms="10" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceSchedulingStrategyWithThirdInputTest -->
+        <test-method status="PASS" signature="conferenceSchedulingStrategyWithXMLInputStreamTest()[pri:0, instance:com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest@3e92efc3]" name="conferenceSchedulingStrategyWithXMLInputStreamTest" duration-ms="16" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceSchedulingStrategyWithXMLInputStreamTest -->
+      </class> <!-- com.kishore.confmanagement.extension.tests.defaultextensionimpl.FirstSchedulingStrategyTest -->
+      <class name="com.kishore.confmanagement.core.tests.vos.tracks.TrackTest">
+        <test-method status="PASS" signature="defaultTrackNotEmptySessionsTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.tracks.TrackTest@703580bf]" name="defaultTrackNotEmptySessionsTest" duration-ms="4" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- defaultTrackNotEmptySessionsTest -->
+        <test-method status="PASS" signature="defaultTrackShouldHaveConfiguredSessionsTest()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.tracks.TrackTest@703580bf]" name="defaultTrackShouldHaveConfiguredSessionsTest" duration-ms="1" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- defaultTrackShouldHaveConfiguredSessionsTest -->
+        <test-method status="PASS" signature="standardTrackCreationByFactory()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.tracks.TrackTest@703580bf]" name="standardTrackCreationByFactory" duration-ms="1" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- standardTrackCreationByFactory -->
+        <test-method status="PASS" signature="standardTrackCreation()[pri:0, instance:com.kishore.confmanagement.core.tests.vos.tracks.TrackTest@703580bf]" name="standardTrackCreation" duration-ms="0" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- standardTrackCreation -->
+      </class> <!-- com.kishore.confmanagement.core.tests.vos.tracks.TrackTest -->
+      <class name="com.kishore.confmanagement.core.tests.ConferenceTalkValidationTest">
+        <test-method status="PASS" signature="conferenceTalkValidationExceedingMaxDurationTest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConferenceTalkValidationTest@3e2e18f2]" name="conferenceTalkValidationExceedingMaxDurationTest" duration-ms="112" started-at="2016-10-15T15:31:59Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- conferenceTalkValidationExceedingMaxDurationTest -->
+      </class> <!-- com.kishore.confmanagement.core.tests.ConferenceTalkValidationTest -->
+      <class name="com.kishore.confmanagement.core.tests.ConfigurationBuilderTest">
+        <test-method status="PASS" signature="defaultConfigurationBuilderInstanceTest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConfigurationBuilderTest@470f1802]" name="defaultConfigurationBuilderInstanceTest" duration-ms="1" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- defaultConfigurationBuilderInstanceTest -->
+        <test-method status="PASS" signature="defaultConfigurationByDefaultConfigurationBuilderAPITest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConfigurationBuilderTest@470f1802]" name="defaultConfigurationByDefaultConfigurationBuilderAPITest" duration-ms="2" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- defaultConfigurationByDefaultConfigurationBuilderAPITest -->
+        <test-method status="PASS" signature="proveNonSingletonConfigurationInstanceByDefaultConfigurationBuilderTest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConfigurationBuilderTest@470f1802]" name="proveNonSingletonConfigurationInstanceByDefaultConfigurationBuilderTest" duration-ms="0" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- proveNonSingletonConfigurationInstanceByDefaultConfigurationBuilderTest -->
+        <test-method status="PASS" signature="explicitConfigurationToConfigurationBuilderTest()[pri:0, instance:com.kishore.confmanagement.core.tests.ConfigurationBuilderTest@470f1802]" name="explicitConfigurationToConfigurationBuilderTest" duration-ms="0" started-at="2016-10-15T15:32:00Z" finished-at="2016-10-15T15:32:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- explicitConfigurationToConfigurationBuilderTest -->
+      </class> <!-- com.kishore.confmanagement.core.tests.ConfigurationBuilderTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

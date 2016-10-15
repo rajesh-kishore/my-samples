@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FirstFitStrategy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.extension.defaultextensionimpl.schedulingstrategy</a> &gt; <span class="el_source">FirstFitStrategy.java</span></div><h1>FirstFitStrategy.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.extension.defaultextensionimpl.schedulingstrategy;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.kishore.confmanagement.core.vos.talks.ConferenceTalk;
+import com.kishore.confmanagement.core.vos.tracks.Track;
+import com.kishore.confmanagement.extension.defaultextensionimpl.schedulingstrategy.vos.FirstFitConferenceSchedulerResult;
+import com.kishore.confmanagement.extension.schedulingstrategy.api.ConferenceSchedulerStrategy;
+import com.kishore.confmanagement.extension.schedulingstrategy.vos.ConferenceSchedulerResult;
+import com.kishore.confmanagement.extension.schedulingstrategy.vos.ConferenceSchedulerStrategyConfiguration;
+import com.kishore.confmanagement.extension.schedulingstrategy.vos.ConferenceSchedulerResult.SchedulerOutcome;
+
+/**
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+<span class="fc" id="L24">public final class FirstFitStrategy implements ConferenceSchedulerStrategy {</span>
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.kishore.confmanagement.schedulingstrategy.api.
+   * ConferenceSchedulerStrategy
+   * #scheduleConference(com.kishore.confmanagement.core.Configurator,
+   * java.util.List)
+   */
+  @Override
+  public ConferenceSchedulerResult scheduleConference(
+      ConferenceSchedulerStrategyConfiguration conferenceConfiguration,
+      List&lt;ConferenceTalk&gt; conferenceTalks) {
+
+<span class="fc" id="L39">    ConferenceSchedulerResult conferenceSchedulerResult = null;</span>
+    try {
+
+<span class="fc" id="L42">      final List&lt;Track&gt; tracks = new LinkedList&lt;Track&gt;();</span>
+<span class="fc" id="L43">      int sequence = 1;</span>
+      // We need to initialize at least the first track first.
+<span class="fc" id="L45">      tracks.add(FirstFitStrategyHelper.createRequiredTrack(sequence));</span>
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">      for (ConferenceTalk eachConferenceTalk : conferenceTalks) {</span>
+<span class="fc" id="L48">        Boolean talkAdded = Boolean.FALSE;</span>
+
+<span class="fc" id="L50">        talkAdded = FirstFitStrategyHelper</span>
+<span class="fc" id="L51">            .tryUpdatingPossibleConferenceSessionInPossibleTrack(tracks,</span>
+                eachConferenceTalk);
+
+        // if above logic could not find the correct match for talk, then create
+        // a new track and insert the talk in appropriate session.
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (!talkAdded) {</span>
+<span class="fc" id="L57">          sequence++;</span>
+<span class="fc" id="L58">          Track nextTrack =</span>
+<span class="fc" id="L59">              FirstFitStrategyHelper.createRequiredTrack(sequence);</span>
+<span class="fc" id="L60">          tracks.add(nextTrack);</span>
+<span class="fc" id="L61">          FirstFitStrategyHelper.findBestFitInCurrentTrack(nextTrack,</span>
+              eachConferenceTalk);
+        }
+<span class="fc" id="L64">      }</span>
+<span class="fc" id="L65">      conferenceSchedulerResult =</span>
+          new FirstFitConferenceSchedulerResult(SchedulerOutcome.EXECUTED,
+<span class="fc" id="L67">              Collections.unmodifiableList(tracks));</span>
+<span class="nc" id="L68">    } catch (Exception e) {</span>
+      // TODO:log the result
+<span class="nc" id="L70">      conferenceSchedulerResult =</span>
+          new FirstFitConferenceSchedulerResult(SchedulerOutcome.ERROR,
+<span class="nc" id="L72">              Collections.emptyList());</span>
+<span class="fc" id="L73">    }</span>
+<span class="fc" id="L74">    return conferenceSchedulerResult;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

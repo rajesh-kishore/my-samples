@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConferenceSchedulerStrategyConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.extension.schedulingstrategy.vos</a> &gt; <span class="el_source">ConferenceSchedulerStrategyConfiguration.java</span></div><h1>ConferenceSchedulerStrategyConfiguration.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.extension.schedulingstrategy.vos;
+
+import java.util.Iterator;
+import java.util.List;
+
+import com.kishore.confmanagement.core.factories.ConferenceSessionFactory;
+import com.kishore.confmanagement.core.vos.sessions.ConferenceSession;
+import com.kishore.confmanagement.extension.schedulingstrategy.api.ConferenceSchedulerStrategy;
+
+/**
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public final class ConferenceSchedulerStrategyConfiguration {
+
+  /**
+   * The configured conference session.
+   */
+  final private List&lt;ConferenceSession&gt; conferenceSessions;
+
+  /**
+   * The talk length unit.
+   */
+  final private String talkLengthUnit;
+
+  /**
+   * The total duration for the day.
+   */
+  @Deprecated
+  final private Integer totalPossibleDurationForTheDay;
+
+  /**
+   * The private constructor.
+   * 
+   * @param conferenceSessions The session list.
+   * @param totalPossibleDurationForTheDay total duration for the day.
+   * @param talkLengthUnit The talk length unit such as min, hour, etc.
+   */
+  private ConferenceSchedulerStrategyConfiguration(
+      List&lt;ConferenceSession&gt; conferenceSessions,
+      Integer totalPossibleDurationForTheDay,
+<span class="fc" id="L47">      String talkLengthUnit) {</span>
+<span class="fc" id="L48">    this.conferenceSessions = conferenceSessions;</span>
+<span class="fc" id="L49">    this.talkLengthUnit = talkLengthUnit;</span>
+<span class="fc" id="L50">    this.totalPossibleDurationForTheDay = totalPossibleDurationForTheDay;</span>
+<span class="fc" id="L51">  }</span>
+
+  /**
+   * The static factory method to create the configuration required by
+   * {@link ConferenceSchedulerStrategy}.
+   * 
+   * @param totalPossibleDurationForTheDay The total possible duration for the
+   *          day.
+   * @param talkLengthUnit the talk length unit.
+   * @return The instance of {@link ConferenceSchedulerStrategyConfiguration}
+   */
+  public static ConferenceSchedulerStrategyConfiguration
+      createConferenceConfiguration(
+          Integer totalPossibleDurationForTheDay,
+          String talkLengthUnit) {
+<span class="fc" id="L66">    return new ConferenceSchedulerStrategyConfiguration(</span>
+<span class="fc" id="L67">        ConferenceSessionFactory.getSingletonInstance()</span>
+<span class="fc" id="L68">            .createAllConfiguredSession(),</span>
+        totalPossibleDurationForTheDay,talkLengthUnit);
+  }
+
+  /**
+   * Returns the talk length unit.
+   * 
+   * @return the talkLengthUnit
+   */
+  public final String talkLengthUnit() {
+<span class="nc" id="L78">    return talkLengthUnit;</span>
+  }
+
+  /**
+   * Returns the possible duration for the day.
+   * 
+   * @return the totalPossibleDurationForTheDay
+   */
+  public final Integer totalPossibleDurationForTheDay() {
+<span class="nc" id="L87">    return totalPossibleDurationForTheDay;</span>
+  }
+
+  /**
+   * @return the conferenceSessions
+   */
+  public final Iterator&lt;ConferenceSession&gt; conferenceSessionsIterator() {
+<span class="fc" id="L94">    return conferenceSessions.iterator();</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

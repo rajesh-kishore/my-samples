@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConferenceSession.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core.vos.sessions</a> &gt; <span class="el_source">ConferenceSession.java</span></div><h1>ConferenceSession.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core.vos.sessions;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.kishore.confmanagement.common.loggers.BaseLogger;
+import com.kishore.confmanagement.core.factories.ConferenceSessionFactory;
+import com.kishore.confmanagement.core.factories.DurationResolverFlyWeightFactory;
+import com.kishore.confmanagement.core.factories.DurationResolverFlyWeightFactory.DURATION_UNIT;
+import com.kishore.confmanagement.core.vos.talks.ConferenceTalk;
+
+/**
+ * The class encapsulates all conference session related information.
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public abstract class ConferenceSession {
+
+  /**
+   * The start time of session.
+   */
+  final private String startTime;
+
+  /**
+   * The end time of session.
+   */
+  final private String endTime;
+
+  /**
+   * The conference talks.
+   */
+<span class="fc" id="L39">  private List&lt;ConferenceTalk&gt; conferenceTalks =</span>
+      new LinkedList&lt;ConferenceTalk&gt;();
+
+  /**
+   * The left over time for the session.
+   */
+  private Integer leftOverTime;
+
+  /**
+   * The only constructor which expects startTime and endTime for each session.
+   * Callers are expected to call {@link ConferenceSessionFactory} to create
+   * concrete status.
+   * 
+   * @param startTime the start time in format format 10:00 am or 10:00 am. or
+   *          10:00 AM or 10:00 AM.
+   * @param endTime the end time in format format 10:00 am or 10:00 am. or 10:00
+   *          AM or 10:00 AM.
+   */
+<span class="fc" id="L57">  protected ConferenceSession(String startTime, String endTime) {</span>
+<span class="fc" id="L58">    this.startTime = startTime;</span>
+<span class="fc" id="L59">    this.endTime = endTime;</span>
+<span class="fc" id="L60">    leftOverTime =</span>
+<span class="fc" id="L61">        DurationResolverFlyWeightFactory.getDurationResolver(</span>
+<span class="fc" id="L62">            DURATION_UNIT.MINUTES).resolveTimeDurationInUnit(startTime(),</span>
+<span class="fc" id="L63">            endTime());</span>
+<span class="fc" id="L64">  }</span>
+
+  /**
+   * Returns the total duration.
+   * 
+   * @return the total duration.
+   */
+  public int totalDuration() {
+<span class="fc" id="L72">    return DurationResolverFlyWeightFactory.getDurationResolver(</span>
+        DURATION_UNIT.MINUTES).
+<span class="fc" id="L74">        resolveTimeDurationInUnit(startTime(), endTime());</span>
+  }
+
+  /**
+   * Returns the session name.
+   * 
+   * @return The session name.
+   */
+  public abstract String sessionName();
+
+  /**
+   * Returns the start time.
+   * 
+   * @return the start time.
+   */
+  public String startTime() {
+<span class="fc" id="L90">    return startTime;</span>
+  }
+
+  /**
+   * Returns the end time.
+   * 
+   * @return The end time.
+   */
+  public String endTime() {
+<span class="fc" id="L99">    return endTime;</span>
+  }
+
+  /**
+   * Returns the default {@link ConferenceTalk} configured for the session.
+   * 
+   * @return The conference talk.
+   */
+  public ConferenceTalk defaultConferenceTalk() {
+<span class="fc" id="L108">    return ConferenceTalk.NO_DEFAULT_CONFERENCE_TALK;</span>
+  }
+
+  /**
+   * Returns the left over time.
+   * 
+   * @return the left over time.
+   */
+  protected Integer leftOverTime() {
+<span class="fc" id="L117">    return leftOverTime;</span>
+  }
+
+  /**
+   * Checks if the {@link ConferenceTalk} is eligible to fit in current session.
+   * 
+   * @param conferenceTalk The instance of {@link ConferenceTalk}
+   * @return TRUE if the talk in context is eligible to fit in the current
+   *         session else FALSE.
+   */
+  public Boolean isTalkApplicable(ConferenceTalk conferenceTalk) {
+<span class="fc bfc" id="L128" title="All 2 branches covered.">    Boolean status = conferenceTalk.talkDuration() &lt;= totalDuration();</span>
+    // TODO: change it to StringBuilder
+<span class="fc" id="L130">    BaseLogger.getInstance().logInfo(</span>
+<span class="fc" id="L131">        &quot;eligibility criteria of &quot; + conferenceTalk.conferenceTalkTitle()</span>
+<span class="fc" id="L132">            + &quot; for session &quot; + sessionName() + &quot; is &quot; + status</span>
+<span class="fc" id="L133">            + &quot;, the talk duration &quot; + conferenceTalk.talkDuration()</span>
+<span class="fc" id="L134">            + &quot;, session  duration &quot; + totalDuration(), null);</span>
+<span class="fc" id="L135">    return status;</span>
+  }
+
+  /**
+   * Tries to fit the {@link ConferenceTalk} in correct session.
+   * 
+   * @param conferenceTalk The conference talk.
+   * @return TRUE when successfully added else FALSE.
+   */
+  public Boolean tryAcumulatingConferenceTalk(ConferenceTalk conferenceTalk) {
+<span class="fc bfc" id="L145" title="All 2 branches covered.">    if (conferenceTalk.talkDuration() &gt; leftOverTime()) {</span>
+<span class="fc" id="L146">      return Boolean.FALSE;</span>
+    }
+
+    /*
+     * if (defaultConferenceTalk() != null) { if
+     * (defaultConferenceTalk().talkDuration() + conferenceTalk.talkDuration() &gt;
+     * leftOverTime()) {
+     * 
+     * } }
+     */
+
+<span class="fc" id="L157">    conferenceTalks.add(conferenceTalk);</span>
+<span class="fc" id="L158">    conferenceTalk.setScheduledTime(DurationResolverFlyWeightFactory</span>
+<span class="fc" id="L159">        .getDurationResolver(DURATION_UNIT.MINUTES).resolveTimeinHourFormat(</span>
+<span class="fc" id="L160">            endTime(), leftOverTime()));</span>
+<span class="fc" id="L161">    setLeftOverTime((leftOverTime())</span>
+<span class="fc" id="L162">        - conferenceTalk.talkDuration());</span>
+<span class="fc" id="L163">    return Boolean.TRUE;</span>
+  }
+
+  /**
+   * Sets the leftOver time.
+   * 
+   * @param leftOverTime the leftOverTime to set
+   */
+  private final void setLeftOverTime(Integer leftOverTime) {
+<span class="fc" id="L172">    this.leftOverTime = leftOverTime;</span>
+<span class="fc" id="L173">  }</span>
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L182">    StringBuilder stringBuilder =</span>
+        new StringBuilder(100);
+<span class="fc" id="L184">    stringBuilder.append(&quot;[Session name : &quot; + sessionName());</span>
+<span class="fc" id="L185">    stringBuilder.append(&quot;, Conference Talks : [&quot;);</span>
+<span class="fc" id="L186">    for (Iterator&lt;ConferenceTalk&gt; conferenceTalkIterator =</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        conferenceTalks.iterator(); conferenceTalkIterator.hasNext();) {</span>
+<span class="fc" id="L188">      stringBuilder.append(conferenceTalkIterator.next());</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">      if (conferenceTalkIterator.hasNext()) {</span>
+<span class="fc" id="L190">        stringBuilder.append(&quot;,&quot;);</span>
+      }
+    }
+<span class="fc" id="L193">    stringBuilder.append(&quot;], &quot;);</span>
+<span class="fc" id="L194">    stringBuilder.append(&quot;start time : &quot; + startTime() + &quot;, end time : &quot;</span>
+<span class="fc" id="L195">        + endTime() + &quot;]&quot;);</span>
+<span class="fc" id="L196">    return stringBuilder.toString();</span>
+  }
+
+  /**
+   * @return the conferenceTalks
+   */
+  private final List&lt;ConferenceTalk&gt; getConferenceTalks() {
+<span class="fc" id="L203">    return conferenceTalks;</span>
+  }
+
+  /**
+   * Adds the default talk configured for the session.
+   */
+  public void addDefaultMandatoryTalk() {
+<span class="fc bfc" id="L210" title="All 2 branches covered.">    if (defaultConferenceTalk() != ConferenceTalk.NO_DEFAULT_CONFERENCE_TALK) {</span>
+<span class="fc" id="L211">      getConferenceTalks().add(defaultConferenceTalk());</span>
+    }
+<span class="fc" id="L213">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

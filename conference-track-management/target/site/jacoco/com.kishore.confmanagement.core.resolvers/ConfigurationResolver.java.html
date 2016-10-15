@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConfigurationResolver.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core.resolvers</a> &gt; <span class="el_source">ConfigurationResolver.java</span></div><h1>ConfigurationResolver.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core.resolvers;
+
+import com.kishore.confmanagement.common.constants.Constants;
+import com.kishore.confmanagement.common.loggers.BaseLogger;
+import com.kishore.confmanagement.core.exceptions.ProviderInstantiationException;
+import com.kishore.confmanagement.extension.schedulingservice.spi.ConferenceSchedulerServiceProvider;
+
+/**
+ * The utility class is responsible for resolving the
+ * {@link ConferenceSchedulerServiceProvider}.
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+<span class="nc" id="L20">public final class ConfigurationResolver {</span>
+
+  /**
+   * The logger class instance.
+   */
+<span class="fc" id="L25">  private static final BaseLogger LOGGER = BaseLogger.getInstance();</span>
+
+  /**
+   * Resolves the {@link ConferenceSchedulerServiceProvider}.
+   * 
+   * @param providerClassName The provider class name.
+   * @return The instance of {@link ConferenceSchedulerServiceProvider}.
+   * @throws The exception com.kishore.confmanagement.core.exceptions.
+   * ProviderInstantiationException if some error occurs.
+   */
+  public static ConferenceSchedulerServiceProvider
+      resolveConferenceSchedulerServiceProvider(
+          String providerClassName) {
+
+<span class="fc" id="L39">    LOGGER.logFinest(&quot;provider class is &quot; + providerClassName);</span>
+<span class="fc" id="L40">    ConferenceSchedulerServiceProvider conferenceSchedulerServiceProvider =</span>
+        null;
+    try {
+<span class="fc" id="L43">      conferenceSchedulerServiceProvider = (ConferenceSchedulerServiceProvider)</span>
+<span class="fc" id="L44">          Class.forName(providerClassName).newInstance();</span>
+<span class="nc" id="L45">    } catch (InstantiationException e) {</span>
+<span class="nc" id="L46">      LOGGER.logSevere(Constants.PROVIDER_CLASS_INSTANTIATION_ERROR,</span>
+          e);
+<span class="nc" id="L48">      throw new ProviderInstantiationException(e);</span>
+<span class="nc" id="L49">    } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L50">      LOGGER.logSevere(</span>
+          Constants.PROVIDER_CLASS_ILLEGAL_ACCESS_ERROR,
+          e);
+<span class="nc" id="L53">      throw new ProviderInstantiationException(e);</span>
+<span class="nc" id="L54">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L55">      LOGGER.logSevere(Constants.PROVIDER_CLASS_NAME_NOT_FOUND,</span>
+          e);
+<span class="nc" id="L57">      throw new ProviderInstantiationException(e);</span>
+<span class="fc" id="L58">    }</span>
+
+    /*
+     * if (conferenceSchedulerServiceProvider == null) {
+     * conferenceSchedulerServiceProvider = new
+     * BasicConferenceSchedulerProvider(); }
+     */
+<span class="fc" id="L65">    LOGGER.logFinest(&quot;Returning succesfully&quot;);</span>
+<span class="fc" id="L66">    return conferenceSchedulerServiceProvider;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

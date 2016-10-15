@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Configuration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core</a> &gt; <span class="el_source">Configuration.java</span></div><h1>Configuration.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core;
+
+import com.kishore.confmanagement.core.factories.DocumentParserFlyWeightFactory;
+import com.kishore.confmanagement.core.factories.DocumentParserFlyWeightFactory.PARSERTYPE;
+import com.kishore.confmanagement.extension.schedulingservice.spi.ConferenceSchedulerServiceProvider;
+
+/**
+ * The class contains the raw configuration provided by client. 
+ * &lt;code&gt;
+ * Configuration configuration =
+        ConfigurationBuilder.defaultConfigurationBuilder().
+        buildConfiguration();
+ * or
+ * new ConfigurationBuilder(
+            ConfigurationBuilder.
+            DEFAULT_CONFERENCE_SCHEDULER_SERVICE_PROVIDER).
+            buildConfiguration();
+  &lt;/code&gt;
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public final class Configuration {
+
+  /**
+   * The parser type for processing the document.
+   */
+  final private DocumentParserFlyWeightFactory.PARSERTYPE parserType;
+
+  /**
+   * The {@link ConferenceSchedulerServiceProvider} implementor class name.Its
+   * not resolved at this point of time.
+   */
+  final private String conferenceSchedulerServiceProvider;
+
+  /**
+   * The possible duration for the day.
+   * 
+   * @deprecated
+   */
+
+  @Deprecated
+  final private Integer totalPossibleDurationForTheDay;
+
+  /**
+   * The talk length unit , the default is min.
+   */
+  final private String talkLengthUnit;
+
+<span class="fc" id="L55">  Configuration(ConfigurationBuilder configuratorBuilder) {</span>
+<span class="fc" id="L56">    this.conferenceSchedulerServiceProvider =</span>
+<span class="fc" id="L57">        configuratorBuilder.conferenceSchedulerServiceProvider();</span>
+<span class="fc" id="L58">    this.talkLengthUnit = configuratorBuilder.talkLengthUnit();</span>
+<span class="fc" id="L59">    this.totalPossibleDurationForTheDay = configuratorBuilder</span>
+<span class="fc" id="L60">        .totalPossibleDurationForTheDay();</span>
+<span class="fc" id="L61">    this.parserType = configuratorBuilder.parserType();</span>
+<span class="fc" id="L62">  }</span>
+
+  /**
+   * The method creates the {@link ConferenceManager} instance given
+   * configuration passed by the client.
+   * 
+   * @return The instance of {@link ConferenceManager}
+   */
+  public ConferenceManager createConferenceManager() {
+<span class="fc" id="L71">    return new ConferenceManager(this);</span>
+  }
+
+  /**
+   * The conference scheduler service provider name.
+   * 
+   * @return The implementor class name for
+   *         {@link ConferenceSchedulerServiceProvider}.
+   */
+  public final String conferenceSchedulerServiceProvider() {
+<span class="fc" id="L81">    return conferenceSchedulerServiceProvider;</span>
+  }
+
+  /**
+   * Returns the total possible duration for the day.
+   * 
+   * @return The total possible duration for the day
+   * @deprecated
+   */
+  @Deprecated
+  public Integer totalPossibleDurationForTheDay() {
+<span class="fc" id="L92">    return totalPossibleDurationForTheDay;</span>
+  }
+
+  /**
+   * Returns the talk length unit, such as min, hour.
+   * 
+   * @return The talk length unit.
+   */
+  public String talkLengthUnit() {
+<span class="fc" id="L101">    return talkLengthUnit;</span>
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L111">    final StringBuilder builder = new StringBuilder(50);</span>
+<span class="fc" id="L112">    builder.append(&quot;[Provider class name :&quot;)</span>
+<span class="fc" id="L113">        .append(conferenceSchedulerServiceProvider())</span>
+<span class="fc" id="L114">        .append(&quot;,talkLengthUnit is &quot;).append(talkLengthUnit())</span>
+<span class="fc" id="L115">        .append(&quot;, parser type is &quot; + parserType() + &quot;]&quot;);</span>
+<span class="fc" id="L116">    return builder.toString();</span>
+  }
+
+  /**
+   * Retruns the parser type.
+   * 
+   * @return The parser type.
+   */
+  public PARSERTYPE parserType() {
+<span class="fc" id="L125">    return parserType;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

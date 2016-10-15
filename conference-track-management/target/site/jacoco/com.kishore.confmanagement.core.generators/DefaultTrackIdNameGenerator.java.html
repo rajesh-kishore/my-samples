@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DefaultTrackIdNameGenerator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core.generators</a> &gt; <span class="el_source">DefaultTrackIdNameGenerator.java</span></div><h1>DefaultTrackIdNameGenerator.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core.generators;
+
+import com.kishore.confmanagement.core.vos.tracks.Track;
+
+/**
+ * The class generates id and name for {@link Track}
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public class DefaultTrackIdNameGenerator implements TrackIdNameGenerator {
+
+  /**
+   * The sequence passed by consumer.
+   */
+<span class="fc" id="L21">  private Integer sequence = null;</span>
+
+  /**
+   * The default prefix name for Track.
+   */
+  private final static String DEFAULT_PREFIX = &quot;Track &quot;;
+
+  /**
+   * The default constructor based on sequence.
+   * 
+   * @param sequence The generated sequence passed by client.
+   */
+<span class="fc" id="L33">  public DefaultTrackIdNameGenerator(Integer sequence) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    setSequence(sequence == null ? 1 : sequence);</span>
+<span class="fc" id="L35">  }</span>
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.kishore.confmanagement.core.generators.TrackIdNameGenerator#
+   * generateTrackName()
+   */
+  @Override
+  public String generateTrackName() {
+<span class="fc" id="L45">    return DEFAULT_PREFIX + sequence.toString();</span>
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.kishore.confmanagement.core.generators.
+   * TrackIdNameGenerator#generateTrackId()
+   */
+  @Override
+  public String generateTrackId() {
+<span class="fc" id="L56">    return getSequence().toString();</span>
+  }
+
+  /**
+   * @return the sequence
+   */
+  private final Integer getSequence() {
+<span class="fc" id="L63">    return sequence;</span>
+  }
+
+  /**
+   * @param sequence the sequence to set
+   */
+  private final void setSequence(Integer sequence) {
+<span class="fc" id="L70">    this.sequence = sequence;</span>
+<span class="fc" id="L71">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConferenceManagerEngine.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core</a> &gt; <span class="el_source">ConferenceManagerEngine.java</span></div><h1>ConferenceManagerEngine.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core;
+
+import java.io.InputStream;
+import java.util.List;
+
+import com.kishore.confmanagement.common.loggers.BaseLogger;
+import com.kishore.confmanagement.core.vos.ConferenceResult;
+import com.kishore.confmanagement.core.vos.talks.ConferenceTalk;
+import com.kishore.confmanagement.extension.schedulingstrategy.vos.ConferenceSchedulerResult;
+import com.kishore.confmanagement.extension.schedulingstrategy.vos.ConferenceSchedulerStrategyConfiguration;
+import com.kishore.confmanagement.extension.validators.api.DefaultValidatable;
+import com.kishore.confmanagement.extension.validators.api.Validatable;
+import com.kishore.confmanagement.extension.validators.vos.ValidationResult;
+import com.kishore.confmanagement.extension.validators.vos.ValidationResult.ValidationOutCome;
+
+/**
+ * The class is for internal working of {@link ConferenceManager}.This is solely
+ * for internal purpose and cannot be access by the client.
+ * 
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+final class ConferenceManagerEngine {
+
+  /**
+   * The logger instance.
+   */
+<span class="fc" id="L33">  final private static BaseLogger LOGGER = BaseLogger.getInstance();</span>
+
+  /**
+   * The resolved configuration.
+   */
+<span class="fc" id="L38">  private ResolvedConfiguration resolvedConfiguration = null;</span>
+
+<span class="fc" id="L40">  private ConferenceManagerEngine(ResolvedConfiguration configuration) {</span>
+<span class="fc" id="L41">    this.resolvedConfiguration = configuration;</span>
+<span class="fc" id="L42">  }</span>
+
+  /**
+   * Returns the resolved configuration.
+   * 
+   * @param rawConfiguration The instance of {@link Configuration}
+   * @return
+   */
+  private static ResolvedConfiguration resolveConfiguration(
+      Configuration rawConfiguration) {
+<span class="fc" id="L52">    ResolvedConfiguration resolvedConfiguration =</span>
+        new ResolvedConfiguration(rawConfiguration);
+<span class="fc" id="L54">    return resolvedConfiguration;</span>
+  }
+
+  /**
+   * The static factory method for creating the instance of current class.
+   * 
+   * @param rawConfiguration The instance of {@link Configuration}.
+   * @return The instance of current class.
+   */
+  public static ConferenceManagerEngine
+      createConferenceManagerEngineByConfiguration(
+          Configuration rawConfiguration) {
+<span class="fc" id="L66">    LOGGER.logFinest(&quot;The raw configuration is &quot; + rawConfiguration);</span>
+<span class="fc" id="L67">    ResolvedConfiguration resolvedConfiguration =</span>
+<span class="fc" id="L68">        resolveConfiguration(rawConfiguration);</span>
+<span class="fc" id="L69">    LOGGER.logFinest(&quot;The resolved configuration is &quot; + resolvedConfiguration);</span>
+<span class="fc" id="L70">    return new ConferenceManagerEngine(resolvedConfiguration);</span>
+  }
+
+  /**
+   * Submits the task to scheduler.
+   * 
+   * @param conferenceTalkLst
+   */
+  public ConferenceResult submit(List&lt;ConferenceTalk&gt; conferenceTalkLst) {
+
+<span class="fc" id="L80">    final ConferenceSchedulerStrategyConfiguration conferenceConfiguration =</span>
+<span class="fc" id="L81">        prepareConferenceConfiguration();</span>
+
+<span class="fc" id="L83">    final Validatable validatable =</span>
+        new DefaultValidatable(conferenceConfiguration,conferenceTalkLst);
+
+<span class="fc" id="L86">    final ValidationResult validationResult =</span>
+<span class="fc" id="L87">        ValidatorHelper.doValidation(validatable, resolvedConfiguration</span>
+<span class="fc" id="L88">            .confManagementValidators().iterator());</span>
+
+<span class="fc" id="L90">    LOGGER.logInfo(&quot;validation outcome  &quot; +</span>
+<span class="fc" id="L91">        validationResult.validationOutCome().toString(), null);</span>
+
+<span class="fc bfc" id="L93" title="All 2 branches covered.">    if (validationResult.validationOutCome() == ValidationOutCome.FAILED) {</span>
+<span class="fc" id="L94">      BaseLogger.getInstance().logInfo(&quot;validation failed &quot;, null);</span>
+<span class="fc" id="L95">      final ConferenceResult conferenceResult =</span>
+          ConferenceResult
+<span class="fc" id="L97">              .createConferenceResultByValidationFailed(validationResult);</span>
+<span class="fc" id="L98">      return conferenceResult;</span>
+    }
+
+<span class="fc" id="L101">    final ConferenceSchedulerResult conferenceSchedulerResult =</span>
+<span class="fc" id="L102">        resolvedConfiguration.conferenceSchedulerStrategy()</span>
+<span class="fc" id="L103">            .scheduleConference(</span>
+                conferenceConfiguration, conferenceTalkLst);
+
+<span class="fc" id="L106">    LOGGER.logInfo(&quot;The execution is completed.&quot;, null);</span>
+
+<span class="fc" id="L108">    return ConferenceResult.createConferenceResultByConferenceSchedulerResult(</span>
+        validationResult, conferenceSchedulerResult);
+  }
+
+  /**
+   * Submits the task to scheduler.
+   * 
+   * @param stream The input stream.
+   */
+  public ConferenceResult submit(InputStream stream) {
+
+<span class="fc" id="L119">    LOGGER</span>
+<span class="fc" id="L120">        .logFinest(&quot;submitting stream to engine, the document&quot;</span>
+            + &quot; could be of any source &quot;);
+<span class="fc" id="L122">    List&lt;ConferenceTalk&gt; resolvedConferenceTalks = null;</span>
+<span class="fc" id="L123">    resolvedConferenceTalks =</span>
+<span class="fc" id="L124">        resolvedConfiguration.getParser().parseListOfTalks(stream);</span>
+<span class="fc" id="L125">    LOGGER.logFinest(&quot; objects resolved successfully &quot;</span>
+        + resolvedConferenceTalks);
+<span class="fc" id="L127">    return submit(resolvedConferenceTalks);</span>
+  }
+
+  /**
+   * Prepares the configuration required by service provider.
+   * 
+   * @return The instance of {@link ConferenceSchedulerStrategyConfiguration}
+   */
+  private ConferenceSchedulerStrategyConfiguration
+      prepareConferenceConfiguration() {
+<span class="fc" id="L137">    return ConferenceSchedulerStrategyConfiguration</span>
+<span class="fc" id="L138">        .createConferenceConfiguration(</span>
+<span class="fc" id="L139">            resolvedConfiguration.totalPossibleDurationForTheDay(),</span>
+<span class="fc" id="L140">            resolvedConfiguration.talkLengthUnit());</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

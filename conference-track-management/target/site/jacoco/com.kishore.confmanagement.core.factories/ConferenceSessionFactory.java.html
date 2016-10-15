@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConferenceSessionFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Conference Tracking Management</a> &gt; <a href="index.source.html" class="el_package">com.kishore.confmanagement.core.factories</a> &gt; <span class="el_source">ConferenceSessionFactory.java</span></div><h1>ConferenceSessionFactory.java</h1><pre class="source lang-java linenums">/**
+ * This code is free software; you can redistribute it and/or modify it.
+ */
+
+package com.kishore.confmanagement.core.factories;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.kishore.confmanagement.common.loggers.BaseLogger;
+import com.kishore.confmanagement.core.vos.sessions.AfterNoonSession;
+import com.kishore.confmanagement.core.vos.sessions.ConferenceSession;
+import com.kishore.confmanagement.core.vos.sessions.LunchSession;
+import com.kishore.confmanagement.core.vos.sessions.MorningSession;
+
+/**
+ * @author Rajesh Kishore
+ * @version 1.0
+ * @since V1
+ */
+public final class ConferenceSessionFactory {
+
+  /**
+   * The possible session types.
+   * 
+   * @author Rajesh Kishore
+   * @version 1.0
+   * @since V1
+   */
+<span class="pc" id="L31">  public static enum ConferenceSessionTypes {</span>
+<span class="fc" id="L32">    MORNING_SESSION, LUNCH_SESSION, AFTERNOON_SESSION</span>
+  };
+
+  /**
+   * The logger instance.
+   */
+<span class="fc" id="L38">  private static final BaseLogger LOGGER = BaseLogger.getInstance();</span>
+
+  /**
+   * The private constructor.
+   */
+<span class="fc" id="L43">  private ConferenceSessionFactory() {</span>
+
+<span class="fc" id="L45">  }</span>
+
+  /**
+   * Returns all configured sessions.
+   * 
+   * @return The unmodifiable list of configured session.
+   */
+  public List&lt;ConferenceSession&gt; createAllConfiguredSession() {
+
+<span class="fc" id="L54">    final List&lt;ConferenceSession&gt; conferenceSessions =</span>
+        new LinkedList&lt;ConferenceSession&gt;();
+
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    for (ConferenceSessionTypes type : ConferenceSessionTypes</span>
+<span class="fc" id="L58">        .values()) {</span>
+<span class="fc" id="L59">      conferenceSessions.add(createConferenceSessionByType(type));</span>
+    }
+
+<span class="fc" id="L62">    return Collections.unmodifiableList(conferenceSessions);</span>
+  }
+
+  /**
+   * The singlegton instance creator to parent class , acting as a helper to
+   * create instance of parent class.
+   * 
+   * @author Rajesh Kishore
+   * @version 1.0
+   * @since V1
+   */
+<span class="nc" id="L73">  private static class ConferenceSessionFactorySingletonCreator {</span>
+<span class="fc" id="L74">    private static ConferenceSessionFactory conferenceSessionFactory =</span>
+        new ConferenceSessionFactory();
+  }
+
+  /**
+   * The api returns the singleton instance of this class.
+   * 
+   * @return The singleton instance of this class.
+   */
+  public static ConferenceSessionFactory getSingletonInstance() {
+<span class="fc" id="L84">    return ConferenceSessionFactorySingletonCreator.conferenceSessionFactory;</span>
+  }
+
+  /**
+   * @param sessionType one of the session types defined in
+   *          {@link ConferenceSessionFactory}. Default is {@link LunchSession}
+   * @return The instance of {@link ConferenceSession}
+   */
+  ConferenceSession createConferenceSessionByType(
+      ConferenceSessionTypes sessionType) {
+
+<span class="fc" id="L95">    LOGGER.logFinest(&quot;The sessionType is &quot; + sessionType);</span>
+
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">    switch (sessionType) {</span>
+    case MORNING_SESSION:
+<span class="fc" id="L99">      return new MorningSession();</span>
+    case AFTERNOON_SESSION:
+<span class="fc" id="L101">      return new AfterNoonSession();</span>
+    case LUNCH_SESSION:
+<span class="fc" id="L103">      return new LunchSession();</span>
+    }
+
+<span class="nc" id="L106">    LOGGER.logFinest(&quot;Successfully created session with sessionType &quot;</span>
+        + sessionType);
+<span class="nc" id="L108">    return new LunchSession();</span>
+
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
