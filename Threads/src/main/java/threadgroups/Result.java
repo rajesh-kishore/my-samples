@@ -5,8 +5,6 @@
 package threadgroups;
 
 /**
- * Its the result class.
- * 
  * @author Rajesh Kishore
  * @version 1.0
  * @since Release1
