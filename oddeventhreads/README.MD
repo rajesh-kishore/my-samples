@@ -1,0 +1,1 @@
+The program demonstrates generating odd and even in alternate fashion using semaphore.
