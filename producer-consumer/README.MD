@@ -1,0 +1,1 @@
+The program uses BlockingQueue to solve producer consumer problem. In addition a thread generation script is attached to monitor the running/waiting/blocked threads.
