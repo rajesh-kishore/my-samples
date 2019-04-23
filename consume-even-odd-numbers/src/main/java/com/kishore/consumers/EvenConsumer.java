@@ -29,9 +29,7 @@ public final class EvenConsumer extends Consumer implements Runnable {
   @Override
   public void run() {
     while ( !lock.isShutDownInitiated() ) {
-      synchronized ( lock ) {
-        consume();
-      }
+      consume();
     }
   }
 }
