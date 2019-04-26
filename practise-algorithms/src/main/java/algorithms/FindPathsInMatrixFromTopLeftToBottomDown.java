@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The algorithm for finding different paths from top left to right most bottom.
- * <code>
+ * The algorithm for finding different paths from top most left [0,0] to right
+ * most bottom [m-1,n-1]. <code>
  * Input : 1 2 3
            4 5 6
   Output : 1 4 5 6
@@ -44,11 +44,6 @@ public final class FindPathsInMatrixFromTopLeftToBottomDown<T> {
         individualPath[index + k - currentJ] = ""
             + matrix[currentI][k];
       }
-      /*
-       * System.out.println(Arrays.asList(individualPath));
-       * System.out.println(Arrays.stream(individualPath).collect(
-       * Collectors.joining(",")));
-       */
       paths.add("{"
           + Arrays.stream(individualPath).collect(Collectors.joining(","))
           + "}");
@@ -60,11 +55,6 @@ public final class FindPathsInMatrixFromTopLeftToBottomDown<T> {
         individualPath[index + k - currentI] = ""
             + matrix[k][currentJ];
       }
-      /*
-       * System.out.println(Arrays.asList(individualPath));
-       * System.out.println(Arrays.stream(individualPath).collect(
-       * Collectors.joining(",")));
-       */
       paths.add("{"
           + Arrays.stream(individualPath).collect(Collectors.joining(","))
           + "}");
