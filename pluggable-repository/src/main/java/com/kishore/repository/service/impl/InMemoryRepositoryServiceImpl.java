@@ -87,7 +87,7 @@ public class InMemoryRepositoryServiceImpl implements RepositoryService {
 	 */
 	@Override
 	public void setApplicationContext(ApplicationContext arg0)
-			throws BeansException {
+			 {
 
 		appContext = arg0;
 	}

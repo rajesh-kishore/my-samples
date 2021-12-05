@@ -37,7 +37,7 @@ public class FindPathsInMatrixFromTopLeftToBottomDownTest {
     final FindPathsInMatrixFromTopLeftToBottomDown<String> obj =
         new FindPathsInMatrixFromTopLeftToBottomDown<String>();
     String[][] matrix = { { "1", "2", "3" }, { "4", "5", "6" } };
-    List<String> expectedResult = new LinkedList<>();
+    List<String> expectedResult = new LinkedList<String>();
     expectedResult.add("{1,4,5,6}");
     expectedResult.add("{1,2,5,6}");
     expectedResult.add("{1,2,3,6}");
@@ -55,7 +55,7 @@ public class FindPathsInMatrixFromTopLeftToBottomDownTest {
     final FindPathsInMatrixFromTopLeftToBottomDown<Integer> obj =
         new FindPathsInMatrixFromTopLeftToBottomDown<Integer>();
     Integer[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    List<String> expectedResult = new LinkedList<>();
+    List<String> expectedResult = new LinkedList<String>();
     expectedResult.add("{1,4,7,8,9}");
     expectedResult.add("{1,4,5,8,9}");
     expectedResult.add("{1,4,5,6,9}");

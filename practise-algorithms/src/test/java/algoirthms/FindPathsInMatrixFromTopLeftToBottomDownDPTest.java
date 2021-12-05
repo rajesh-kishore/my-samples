@@ -26,7 +26,7 @@ public class FindPathsInMatrixFromTopLeftToBottomDownDPTest {
     final FindPathsInMatrixFromTopLeftToBottomDownDP<String> obj =
         new FindPathsInMatrixFromTopLeftToBottomDownDP<String>();
     String[][] matrix = { { "1", "2", "3" }, { "4", "5", "6" } };
-    Set<String> expectedResult = new LinkedHashSet<>();
+    Set<String> expectedResult = new LinkedHashSet<String>();
     expectedResult.add("1:2:3:6");
     expectedResult.add("1:2:5:6");
     expectedResult.add("1:4:5:6");
@@ -45,7 +45,7 @@ public class FindPathsInMatrixFromTopLeftToBottomDownDPTest {
     final FindPathsInMatrixFromTopLeftToBottomDownDP<Integer> obj =
         new FindPathsInMatrixFromTopLeftToBottomDownDP<Integer>();
     Integer[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    List<String> expectedResult = new LinkedList<>();
+    List<String> expectedResult = new LinkedList<String>();
     expectedResult.add("1:4:7:8:9");
     expectedResult.add("1:4:5:8:9");
     expectedResult.add("1:4:5:6:9");

@@ -22,7 +22,7 @@ public final class CyclicBarrierDemo {
    * @throws InterruptedException
    */
   public static void main(String[] args) throws InterruptedException {
-    BlockingQueue<Integer> resultList = new LinkedBlockingQueue<>( 3 );
+    BlockingQueue<Integer> resultList = new LinkedBlockingQueue<Integer>( 3 );
     Runnable barrierAction = new ResultBarrierAction( resultList );
     CyclicBarrier cyclicBarrier = new CyclicBarrier( 3, barrierAction );
     Runnable additionOfOneToTen =
